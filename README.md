@@ -16,6 +16,6 @@ Use the ingame macro system (f8) to set `/fpssavior` to any key you want in orde
 
 This is likely obvious but FPS Savior is not compatible SFX Toggle, use only one or the other if you use both they will conflict with each other.
 
-# Download / Installation
+# Download
 
-Soon to be available on the [Addon Manager](https://github.com/Excrulon/Tree-of-Savior-Addon-Manager)?
+Install addons via the [Addon Manager](https://github.com/Excrulon/Tree-of-Savior-Addon-Manager).
