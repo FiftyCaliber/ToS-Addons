@@ -38,7 +38,7 @@ function ZOOMYPLUS_CMD(command)
         return;
     end
 	if cmd == 'help' then
-		CHAT_SYSTEM('Zoomy Plus Help:{nl}Page Up to zoom in and Page Down to zoom out. Hold Left Ctrl to zoom in and out 5 times faster. Also while holding Left Ctrl you can hold Right Click and move the mouse to rotate the camera!{nl}/zplus zoom <num> for specific zoom amount anywhere between 50 and 1500!{nl}Example: /zplus zoom 800{nl}/zplus swap <num1> <num2> to swap between two zoom amounts!{nl}Example: /zplus swap 350 500{nl}/zplus rotate <x> <y> to rotate camera to specific coordinates between 0 and 359!{nl}Example: /zplus rotate 90 10{nl}/zplus reset to restore default positioning.');
+		CHAT_SYSTEM('Zoomy Plus Help:{nl}Use Page Up to zoom in and Page Down to zoom out. Doing so while holding Left Ctrl makes zooming in and out 5 times faster. Also while holding Left Ctrl you can press and hold Right Click to rotate the camera by moving the mouse!{nl}/zplus zoom <num> to go to a specific zoom level anywhere between 50 and 1500!{nl}Example: /zplus zoom 800{nl}/zplus swap <num1> <num2> to swap between two zoom levels!{nl}Example: /zplus swap 350 500{nl}/zplus rotate <x> <y> to rotate camera to specific coordinates between 0 and 359!{nl}Example: /zplus rotate 90 10{nl}/zplus reset to restore default positioning.');
 		return;
 	end
 	if cmd == 'zoom' then
@@ -49,7 +49,7 @@ function ZOOMYPLUS_CMD(command)
 				camera.CustomZoom(currentZoom);
 				ZOOMYPLUS_SETTEXT();
 			else
-				CHAT_SYSTEM('Invalid zoom amount. Minimum is 50 and maximum is 1500.');
+				CHAT_SYSTEM('Invalid zoom level. Minimum is 50 and maximum is 1500.');
 			end
 		end
 		return;
@@ -69,7 +69,7 @@ function ZOOMYPLUS_CMD(command)
 					ZOOMYPLUS_SETTEXT();
 				end
 			else
-				CHAT_SYSTEM('Invalid zoom amount. Minimum is 50 and maximum is 1500.');
+				CHAT_SYSTEM('Invalid zoom level. Minimum is 50 and maximum is 1500.');
 			end
 		end
 		return;
