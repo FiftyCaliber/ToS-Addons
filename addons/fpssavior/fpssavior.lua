@@ -33,20 +33,27 @@ end
 
 function FPSSAVIOR_UPDATE(frame, msg, argStr, argNum)
 	saviorFrame = ui.GetFrame('fpssaviorframe');
-	saviorFrame = ui.CreateNewFrame('bandicam','fpssaviorframe');
-	saviorFrame:SetBorder(0, 0, 0, 0);
-	saviorFrame:Resize(100,20)
-	saviorFrame:SetOffset(510,860)
-	saviorText = saviorFrame:CreateOrGetControl('richtext','saviortext',0,0,0,0);
-	saviorText = tolua.cast(saviorText,'ui::CRichText');
-	saviorText:SetGravity(ui.LEFT,ui.CENTER_VERT);
-	saviorText:SetText('{s16}'..saviorMode[settings.saviorToggle]);
-	saviorText:ShowWindow(1);
+	if saviorFrame == nil then
+		saviorFrame = ui.CreateNewFrame('bandicam','fpssaviorframe');
+		saviorFrame:SetBorder(0, 0, 0, 0);
+		saviorFrame:Resize(100,20)
+		saviorFrame:SetOffset(510,860)
+		saviorText = saviorFrame:CreateOrGetControl('richtext','saviortext',0,0,0,0);
+		saviorText = tolua.cast(saviorText,'ui::CRichText');
+		saviorText:SetGravity(ui.LEFT,ui.CENTER_VERT);
+		saviorText:SetText('{s16}'..saviorMode[settings.saviorToggle]);
+		saviorText:ShowWindow(1);
+	end
+end
+
+function FPSSAVIOR_SETTEXT()
+	if saviorFrame ~= nil then
+		saviorText:SetText('{s16}'..saviorMode[settings.saviorToggle]);
+	end
 end
 
 function FPSSAVIOR_DEFAULT()
 	settings.saviorToggle = 1;
-	saviorText:SetText('{s16}'..saviorMode[settings.saviorToggle]);
 
 	graphic.SetDrawActor(100);
 	graphic.SetDrawMonster(100);
@@ -67,13 +74,13 @@ function FPSSAVIOR_DEFAULT()
 	imcperfOnOff.EnableEffect(1);
 	imcperfOnOff.EnableDeadParts(1);
 	
+	FPSSAVIOR_SETTEXT();
 	FPSSAVIOR_SAVESETTINGS();
 end
 
 function FPSSAVIOR_TOGGLE()
 	if settings.saviorToggle == 1 then
 		settings.saviorToggle = 2;
-		saviorText:SetText('{s16}'..saviorMode[settings.saviorToggle]);
 
 		graphic.SetDrawActor(15);
 		graphic.SetDrawMonster(30);
@@ -94,10 +101,10 @@ function FPSSAVIOR_TOGGLE()
 		imcperfOnOff.EnableEffect(1);
 		imcperfOnOff.EnableDeadParts(0);
 		
+		FPSSAVIOR_SETTEXT();
 		FPSSAVIOR_SAVESETTINGS()
-    elseif settings.saviorToggle == 2 then
+	elseif settings.saviorToggle == 2 then
 		settings.saviorToggle = 3;
-		saviorText:SetText('{s16}'..saviorMode[settings.saviorToggle]);
 		
 		graphic.SetDrawActor(0);
 		graphic.SetDrawMonster(5);
@@ -118,6 +125,7 @@ function FPSSAVIOR_TOGGLE()
 		imcperfOnOff.EnableEffect(1);
 		imcperfOnOff.EnableDeadParts(0);
 		
+		FPSSAVIOR_SETTEXT();
 		FPSSAVIOR_SAVESETTINGS()
 	else
 		FPSSAVIOR_DEFAULT();
