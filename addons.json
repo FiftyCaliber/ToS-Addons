@@ -1,29 +1,29 @@
 [
-    {
-        "name" : "FPS Savior",
-        "file" : "fpssavior",
-        "extension" : "ipf",
-        "fileVersion" : "v1.0.3",
-        "releaseTag" : "FPSv1.0.3",
-        "unicode" : "🔫,
-        "description" : "Switch between High, Low, and Super Low graphic settings to help reduce lag. Not compatible with SFX Toggle. To toggle settings type [/fpssavior] ingame. For more information refer to the website.",
-        "tags" : [
-            "graphics",
-            "effects",
-            "fps"
-        ]
-    },
-    {
-        "name" : "Zoomy Plus",
-        "file" : "zoomyplus",
-        "extension" : "ipf",
-        "fileVersion" : "v1.0.3",
-        "releaseTag" : "ZPv1.0.3",
-        "unicode" : "🔫",
-        "description" : "Zoom closer/farther then normal and rotate your camera to capture neat pictures. For help type [/zplus help] ingame or refer to the website for more information.",
-        "tags" : [
-            "zoom",
-            "rotate"
-        ]
-    }
+	{
+		"name" : "FPS Savior",
+		"file" : "fpssavior",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.3",
+		"releaseTag" : "FPSv1.0.3",
+		"unicode" : "🔫",
+		"description" : "Switch between High, Low, and Super Low graphic settings to help reduce lag. Not compatible with SFX Toggle. To toggle settings type [/fpssavior] ingame. For more information refer to the website.",
+		"tags" : [
+			"graphics",
+			"effects",
+			"fps"
+		]
+	},
+	{
+		"name" : "Zoomy Plus",
+		"file" : "zoomyplus",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.3",
+		"releaseTag" : "ZPv1.0.3",
+		"unicode" : "🔫",
+		"description" : "Zoom closer/farther then normal and rotate your camera to capture neat pictures. For help type [/zplus help] ingame or refer to the website for more information.",
+		"tags" : [
+			"zoom",
+			"rotate"
+		]
+	}
 ]
