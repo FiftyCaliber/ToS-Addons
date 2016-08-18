@@ -1,6 +1,6 @@
 # Tree of Savior Addons
 
-### FPS Savior v1.0.3
+### FPS Savior v1.0.4
 
 Similar to [adjv's](https://github.com/axjv) SFX Toggle however instead of changing settings based on your fps I made it so you can just toggle between 3 predefined settings High, Low, and Super Low. This is likely obvious but FPS Savior is not compatible SFX Toggle, use only one or the other if you use both they will conflict with each other.
 
