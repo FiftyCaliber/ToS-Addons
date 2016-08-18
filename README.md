@@ -2,11 +2,11 @@
 
 ### FPS Savior v1.0.3
 
-Similar to [adjv's](https://github.com/axjv) SFX Toggle however instead of changing settings based on your fps I made it so you can just toggle between 3 predefined settings High, Low, and Super Low. Current Setting is displayed right below the FPS display's default location. Soon™ this will be movable like Zoomy Plus.
+Similar to [adjv's](https://github.com/axjv) SFX Toggle however instead of changing settings based on your fps I made it so you can just toggle between 3 predefined settings High, Low, and Super Low. This is likely obvious but FPS Savior is not compatible SFX Toggle, use only one or the other if you use both they will conflict with each other.
+
+Current Setting is displayed right below the FPS display's default location. This display is movable.
 
 ![FPS Savior UI](http://i.imgur.com/vWH9GhG.png)
-
-Use the ingame macro system (f8) to set `/fpssavior` to any key you want in order to toggle quickly.
 
 * [High] Exactly how it sounds, everything is set to high.
 
@@ -14,7 +14,10 @@ Use the ingame macro system (f8) to set `/fpssavior` to any key you want in orde
 
 * [Super Low] This is the lowest I could make the settings while still being able to see what your doing. Not recommended for PvP since some effects are not visible and you won't see players until they are close to you. Players drawn outside a certain range from you is limited to 0, and monsters drawn outside a certain range from you is limited to 5. I created this mode for world bossing, since you don't need to see anything except for the boss and your own aiming circles to dps it.
 
-This is likely obvious but FPS Savior is not compatible SFX Toggle, use only one or the other if you use both they will conflict with each other.
+##### Slash Commands (Use the ingame macro system (f8) to use slash commands more efficiently.)
+* `/fpssavior` to toggle between High, Low, and Super Low.
+* `/fpssavior lock` to unlock/lock the settings display in order to move it around.
+* `/fpssavior default` to restore settings display to its default location.
 
 ### Zoomy Plus v1.0.3
 
