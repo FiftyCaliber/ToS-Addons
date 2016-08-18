@@ -3,10 +3,10 @@
 		"name" : "FPS Savior",
 		"file" : "fpssavior",
 		"extension" : "ipf",
-		"fileVersion" : "v1.0.3",
-		"releaseTag" : "FPSv1.0.3",
+		"fileVersion" : "v1.0.4",
+		"releaseTag" : "FPSv1.0.4",
 		"unicode" : "🔫",
-		"description" : "Switch between High, Low, and Super Low graphic settings to help reduce lag. Not compatible with SFX Toggle. To toggle settings type [ /fpssavior ] ingame. For more information refer to the website.",
+		"description" : "Switch between High, Low, and Super Low graphic settings to help reduce lag. Not compatible with SFX Toggle. For help type [ /fpssavior help ] ingame or refer to the website for more information.",
 		"tags" : [
 			"graphics",
 			"effects",
