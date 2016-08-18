@@ -190,6 +190,10 @@ function ZOOMYPLUS_CMD(command)
 end
 
 function ZOOMYPLUS_UPDATE(frame, msg, argStr, argNum)
+	if frame:IsVisible() == 0 then
+		frame:ShowWindow(1);
+	end
+	
 	zoomyplusFrame = ui.GetFrame('zplusframe');
 	if zoomyplusFrame == nil and settings.display == 1 then
 		zoomyplusFrame = ui.CreateNewFrame('bandicam','zplusframe');
