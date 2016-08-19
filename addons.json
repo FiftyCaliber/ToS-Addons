@@ -17,8 +17,8 @@
 		"name" : "Zoomy Plus",
 		"file" : "zoomyplus",
 		"extension" : "ipf",
-		"fileVersion" : "v1.0.3",
-		"releaseTag" : "ZPv1.0.3",
+		"fileVersion" : "v1.0.4",
+		"releaseTag" : "ZPv1.0.4",
 		"unicode" : "🔫",
 		"description" : "Zoom closer/farther then normal and rotate your camera to capture neat pictures. For help type [ /zplus help ] ingame or refer to the website for more information.",
 		"tags" : [
