@@ -19,7 +19,7 @@ Current Setting is displayed right below the FPS display's default location. Thi
 * `/fpssavior lock` to unlock/lock the settings display in order to move it around.
 * `/fpssavior default` to restore settings display to its default location.
 
-### Zoomy Plus v1.0.3
+### Zoomy Plus v1.0.4
 
 This mod is based off of and named after [Excrulon's](https://github.com/Excrulon) Zoomy v1.0.0 that he took off of the [Addon Manager](https://github.com/Excrulon/Tree-of-Savior-Addon-Manager) due to people whining about it being unfair. While it is true that it gives an unfair advantage in Team Battle League many people use it anyway and its available for anyone to download/install. Really IMC should just disable the custom camera zoom function while in Team Battle League fixing the issue all together. Honestly its more unfair to those who didn't install Zoomy before it was taken off the [Addon Manager](https://github.com/Excrulon/Tree-of-Savior-Addon-Manager) since those who already had it installed still have it. Besides, this can be used to capture some very neat pictures at angles normally not possible so I wanted to share.
 
