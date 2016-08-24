@@ -25,5 +25,18 @@
 			"zoom",
 			"rotate"
 		]
+	},
+	{
+		"name" : "Wonderland",
+		"file" : "wonderland",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.0",
+		"releaseTag" : "WLv1.0.0",
+		"unicode" : "🔫",
+		"description" : "Increase/Decrease the size of yourself and targets for neat pictures and all around fun (on your screen only). Type [ /wonderland ] or [ /wl ] ingame to open & close Wonderland.",
+		"tags" : [
+			"grow",
+			"shrink"
+		]
 	}
 ]
