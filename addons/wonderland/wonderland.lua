@@ -3,8 +3,8 @@ CHAT_SYSTEM('Wonderland loaded!{nl}Open & Close: /wl or /wonderland');
 
 function WONDERLAND_ON_INIT(addon, frame)
 	WONDERLAND_LOADSETTINGS();
-	acutil.slashCommand('/wonderland',WL_TOGGLE_FRAME);
-	acutil.slashCommand('/wl',WL_TOGGLE_FRAME);
+	acutil.slashCommand('/wonderland',WONDERLAND_CMD);
+	acutil.slashCommand('/wl',WONDERLAND_CMD);
 	addon:RegisterMsg('TARGET_SET', 'WL_TARGET_UPDATE');
 	addon:RegisterMsg('FPS_UPDATE', 'WL_TARGET_UPDATE');
 end
@@ -31,6 +31,42 @@ function WONDERLAND_SAVESETTINGS()
 	acutil.saveJSON("../addons/wonderland/settings.json", settings);
 end
 
+function WONDERLAND_CMD(command)
+	local cmd = '';
+	if #command > 0 then
+        cmd = table.remove(command, 1);
+    else
+		WL_TOGGLE_FRAME();
+		return;
+    end
+	if cmd == 'rotate1' then
+		local arg1 = tonumber(table.remove(command, 1));
+		if type(arg1) == 'number' then
+			if arg1 >= 0 and arg1 <= 359.99 then
+				degrees = arg1
+				CFSMActor.SetRotate(world.GetActor(session.GetTargetHandle()),degrees);
+				CHAT_SYSTEM(info.GetName(session.GetTargetHandle()) .. ' rotated to ' .. degrees .. '° once.');
+			else
+				CHAT_SYSTEM('Invalid degrees. Minimum is 0 and maximum is 359.99.{nl}Example: /rotate1 157.51');
+			end
+			return;
+		end
+	end
+	if cmd == 'rotate2' then
+		local arg1 = tonumber(table.remove(command, 1));
+		if type(arg1) == 'number' then
+			if arg1 >= 0 and arg1 <= 359.99 then
+				degrees = arg1
+				WL_DOUBLE_ROTATE();
+				CHAT_SYSTEM(info.GetName(session.GetTargetHandle()) .. ' rotated to ' .. degrees .. '° twice.');
+			else
+				CHAT_SYSTEM('Invalid degrees. Minimum is 0 and maximum is 359.99.{nl}Example: /rotate2 20.93');
+			end
+			return;
+		end
+	end
+	CHAT_SYSTEM('Invalid command. Available commands:{nl}/wonderland{nl}/wonderland rotate1 <num°>{nl}/wonderland rotate2 <num°>{nl}/wl{nl}/wl rotate1 <num°>{nl}/wl rotate2 <num°>');
+end
 
 function WL_CREATE_FRAME()
 --	[FRAME]
@@ -122,7 +158,7 @@ function WL_CREATE_FRAME()
 	picHELP:SetImage('icon_item_nothing');
 	picHELP:SetEnableStretch(1);
 	picHELP:EnableHitTest(1);
-	picHELP:SetTextTooltip('{s18}Switch between self and target pages by using the next and previous page buttons{nl}or by double right clicking the book.{nl} {nl}{/}{s20}{b}Percent (%) {/}{/}{s18}controls the amount that you increase/decrease the size of yourself{nl}or your target. For example, if you set it to 50% and click the "Eat Me" button on the{nl}self page you will grow 50% larger. Keep in mind that if you decrease yourself or{nl}your target by 100% then you/they/it will disappear leaving nothing to increase or{nl}decrease in size. Go through any loading screen to fix this and reset other changes.{nl} {nl}{/}{s20}{b}Speed {/}{/}{s18}controls the speed at which size changes occur. Speed 0 being instantaneous{nl}and speed 10 being slowest.{/}');
+	picHELP:SetTextTooltip('{s20}{b}Percent (%) {/}{/}{s18}controls the amount that you increase/decrease the size of yourself or your target.{nl}For example, if you set it to 50% and click the "Eat Me" button on the self page you will grow 50%{nl}larger. Keep in mind that if you decrease yourself or your target by 100% then you/they/it will{nl}disappear leaving nothing to increase or decrease in size. Go through any loading screen to fix{nl}this and reset other changes.{nl} {nl}{/}{s20}{b}Speed {/}{/}{s18}controls the speed at which size changes occur. Speed 0 being instantaneous and speed{nl}10 being slowest.{nl} {nl}Switch between self and target pages by using the next and previous page buttons or by double{nl}right clicking the book.{nl} {nl}Need to rotate the direction a target is facing? Use slash commands {b}/wl rotate1 <num°> {/}and {b}/wl{nl}rotate2 <num°>{/}. The difference between the two commands is rotate1 rotates the target once{nl}while rotate2 rotates it twice. For more information about this check out my README on GitHub{nl}which you can find easily by hitting the "Website" button on the Addon Manager.{/}');
 	
 --	[SELF]
 	-- button to move from self page to target page
@@ -450,7 +486,7 @@ function WL_TOGGLE_FRAME()
 	if wonderlandFrame == nil then
 		WL_CREATE_FRAME();
 	elseif wonderlandFrame:IsVisible() == 1 then
-        wonderlandFrame:ShowWindow(0);
+		wonderlandFrame:ShowWindow(0);
     end
 end
 
@@ -495,7 +531,7 @@ function WL_TARGET_UPDATE()
 			txtNameTARGET2 = tolua.cast(txtNameTARGET2,'ui::CRichText');
 			txtNameTARGET2:SetGravity(ui.CENTER_HORZ,ui.CENTER_VERT);
 			txtNameTARGET2:SetFontName('bookfont');
-			local tgtNAME2 = info.GetFamilyName(session.GetTargetHandle())
+			local tgtNAME2 = info.GetFamilyName(session.GetTargetHandle());
 			txtNameTARGET2:SetMaxWidth(999);
 			txtNameTARGET2:SetText(tgtNAME2);
 			if txtNameTARGET2:GetTextWidth() > 163 then
@@ -526,9 +562,9 @@ function WL_TARGET_UPDATE()
 			txtNameTARGET2:EnableHitTest(0);
 			txtNameTARGET2:SetOffset(0,13);
 		else
-			if txtNameTARGET2 ~= nil then
 			txtNameTARGET1:SetOffset(0,0);
-			txtNameTARGET2:ShowWindow(0);
+			if txtNameTARGET2 ~= nil then
+				txtNameTARGET2:ShowWindow(0);
 			end
 		end
 	end
@@ -548,4 +584,10 @@ end
 
 function WL_TARGET_DRINK_ME()
 	CFSMActor.ChangeScale(world.GetActor(session.GetTargetHandle()), 1 - (settings.amount / 100), settings.speed);
+end
+
+function WL_DOUBLE_ROTATE()
+	CFSMActor.SetRotate(world.GetActor(session.GetTargetHandle()),degrees);
+	ReserveScript('WL_DOUBLE_ROTATE()',.25);
+	CFSMActor.SetRotate(world.GetActor(session.GetTargetHandle()),degrees);
 end
