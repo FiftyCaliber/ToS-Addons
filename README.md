@@ -43,6 +43,26 @@ Use Page Up to zoom in and Page Down to zoom out. Doing so while holding Left Ct
 * `/zplus default` to restore coordinate display to its default location.
 * `/zplus help` for help ingame.
 
+### Wonderland v1.0.1
+
+Wonderland allows you to increase/decrease the size of yourself and targets, as well as rotate the direction targets are facing, for neat pictures and all around fun. All of these changes are made on your screen only, and do not effect others gameplay. By typing `/wonderland` or `/wl` ingame you can open Wonderland's UI which looks like a book. This book has two pages (well techniquely four but w/e) the self page and the target page. You can switch between these pages by using the next and previous page buttons or by double right clicking the book.
+
+![Wonderland Self Page](http://i.imgur.com/Wz19KUX.png)
+![Wonderland Target Page](http://i.imgur.com/u8uG0i5.png)
+
+* __Percent (%)__ controls the amount that you increase/decrease the size of yourself or your target. For example, if you set it to 50% and click the "Eat Me" button on the self page you will grow 50% larger. Keep in mind that if you decrease yourself or your target by 100% then you/they/it will disappear leaving nothing to increase or decrease in size. Go through any loading screen to fix this and reset other changes.
+
+* __Speed__ controls the speed at which size changes occur. Speed 0 being instantaneous and speed 10 being slowest.
+ 
+Need to rotate the direction a target is facing? Use the slash commands mentioned below. The difference between the two commands is rotate1 rotates the target once while rotate2 rotates it twice. Why would a target need to be rotated twice? Well if you only rotate it once it will only rotate the body or if the change in degrees is not enough to change the direction of the body then it wont rotate at all. Sending the command twice makes sure it fully rotates, however I gave the option to rotate once because some of you may want to play around with it and rotate only the body while the head still faces the previous direction. Keep in mind that not all targets are rotatable, an example of this would be the Statue of Goddess Ausrine in Klaipeda. The same goes for increasing/decreasing size, some seem to not be able to be changed. Like the statue in Orsha, though the one in Klaipeda can change size but not rotate, the one in Orsha can't do either. I look forward to seeing creative pictures made by people using this and/or Zoomy Plus in the near future. Enjoy! :P
+
+##### Slash Commands (Use the ingame macro system (f8) to use slash commands more efficiently.)
+* `/wonderland` or `/wl` to open & close the wonderland book.
+* `/wonderland rotate1 <num°>` or `/wl rotate1 <num°>` to rotate target to designated degrees once.
+ * Example: `/wl rotate1 157.51`
+* `/wonderland rotate2 <num°>` or `/wl rotate2 <num°>` to rotate target to designated degrees twice.
+ * Example: `/wl rotate2 20.93`
+
 # Download
 
 Install addons via the [Addon Manager](https://github.com/Excrulon/Tree-of-Savior-Addon-Manager).
