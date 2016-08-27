@@ -254,33 +254,18 @@ function WL_CREATE_FRAME()
 	local selfNAME1 = info.GetName(session.GetMyHandle());
 	txtNameSELF1:SetMaxWidth(999);
 	txtNameSELF1:SetText(selfNAME1);
-	if txtNameSELF1:GetTextWidth() > 163 then
-		txtNameSELF1:SetText('{s19}'..selfNAME1..'{/}');
+	for i=19,13,-1 do
 		if txtNameSELF1:GetTextWidth() > 163 then
-			txtNameSELF1:SetText('{s18}'..selfNAME1..'{/}');
-			if txtNameSELF1:GetTextWidth() > 163 then
-				txtNameSELF1:SetText('{s17}'..selfNAME1..'{/}');
-				if txtNameSELF1:GetTextWidth() > 163 then
-					txtNameSELF1:SetText('{s16}'..selfNAME1..'{/}');
-					if txtNameSELF1:GetTextWidth() > 163 then
-						txtNameSELF1:SetText('{s15}'..selfNAME1..'{/}');
-						if txtNameSELF1:GetTextWidth() > 163 then
-							txtNameSELF1:SetText('{s14}'..selfNAME1..'{/}');
-							if txtNameSELF1:GetTextWidth() > 163 then
-								txtNameSELF1:SetText('{s13}'..selfNAME1..'{/}');
-								if txtNameSELF1:GetTextWidth() > 163 then
-									txtNameSELF1:SetMaxWidth(163);
-									txtNameSELF1:SetText('{s12}'..selfNAME1..'{/}');
-								end
-							end
-						end
-					end
-				end
-			end
+			txtNameSELF1:SetText('{s'..i..'}'..selfNAME1..'{/}');
 		end
+	end
+	if txtNameSELF1:GetTextWidth() > 163 then
+		txtNameSELF1:SetMaxWidth(163);
+		txtNameSELF1:SetText('{s12}'..selfNAME1..'{/}');
 	end
 	txtNameSELF1:EnableHitTest(0);
 	txtNameSELF1:SetOffset(0,-13);
+	
 	txtNameSELF2 = boxNameSELF:CreateOrGetControl('richtext','txtNameSELF2',0,0,0,0);
 	txtNameSELF2 = tolua.cast(txtNameSELF2,'ui::CRichText');
 	txtNameSELF2:SetGravity(ui.CENTER_HORZ,ui.CENTER_VERT);
@@ -288,30 +273,14 @@ function WL_CREATE_FRAME()
 	local selfNAME2 = info.GetFamilyName(session.GetMyHandle());
 	txtNameSELF2:SetMaxWidth(999);
 	txtNameSELF2:SetText(selfNAME2);
-	if txtNameSELF2:GetTextWidth() > 163 then
-		txtNameSELF2:SetText('{s19}'..selfNAME2..'{/}');
+	for i=19,13,-1 do
 		if txtNameSELF2:GetTextWidth() > 163 then
-			txtNameSELF2:SetText('{s18}'..selfNAME2..'{/}');
-			if txtNameSELF2:GetTextWidth() > 163 then
-				txtNameSELF2:SetText('{s17}'..selfNAME2..'{/}');
-				if txtNameSELF2:GetTextWidth() > 163 then
-					txtNameSELF2:SetText('{s16}'..selfNAME2..'{/}');
-					if txtNameSELF2:GetTextWidth() > 163 then
-						txtNameSELF2:SetText('{s15}'..selfNAME2..'{/}');
-						if txtNameSELF2:GetTextWidth() > 163 then
-							txtNameSELF2:SetText('{s14}'..selfNAME2..'{/}');
-							if txtNameSELF2:GetTextWidth() > 163 then
-								txtNameSELF2:SetText('{s13}'..selfNAME2..'{/}');
-								if txtNameSELF2:GetTextWidth() > 163 then
-									txtNameSELF2:SetMaxWidth(163);
-									txtNameSELF2:SetText('{s12}'..selfNAME2..'{/}');
-								end
-							end
-						end
-					end
-				end
-			end
+			txtNameSELF2:SetText('{s'..i..'}'..selfNAME2..'{/}');
 		end
+	end
+	if txtNameSELF2:GetTextWidth() > 163 then
+		txtNameSELF2:SetMaxWidth(163);
+		txtNameSELF2:SetText('{s12}'..selfNAME2..'{/}');
 	end
 	txtNameSELF2:EnableHitTest(0);
 	txtNameSELF2:SetOffset(0,13);
@@ -496,30 +465,14 @@ function WL_TARGET_UPDATE()
 		local tgtNAME1 = info.GetName(session.GetTargetHandle());
 		txtNameTARGET1:SetMaxWidth(999);
 		txtNameTARGET1:SetText(tgtNAME1);
-		if txtNameTARGET1:GetTextWidth() > 163 then
-			txtNameTARGET1:SetText('{s19}'..tgtNAME1..'{/}');
+		for i=19,13,-1 do
 			if txtNameTARGET1:GetTextWidth() > 163 then
-				txtNameTARGET1:SetText('{s18}'..tgtNAME1..'{/}');
-				if txtNameTARGET1:GetTextWidth() > 163 then
-					txtNameTARGET1:SetText('{s17}'..tgtNAME1..'{/}');
-					if txtNameTARGET1:GetTextWidth() > 163 then
-						txtNameTARGET1:SetText('{s16}'..tgtNAME1..'{/}');
-						if txtNameTARGET1:GetTextWidth() > 163 then
-							txtNameTARGET1:SetText('{s15}'..tgtNAME1..'{/}');
-							if txtNameTARGET1:GetTextWidth() > 163 then
-								txtNameTARGET1:SetText('{s14}'..tgtNAME1..'{/}');
-								if txtNameTARGET1:GetTextWidth() > 163 then
-									txtNameTARGET1:SetText('{s13}'..tgtNAME1..'{/}');
-									if txtNameTARGET1:GetTextWidth() > 163 then
-										txtNameTARGET1:SetMaxWidth(163);
-										txtNameTARGET1:SetText('{s12}'..tgtNAME1..'{/}');
-									end
-								end
-							end
-						end
-					end
-				end
+				txtNameTARGET1:SetText('{s'..i..'}'..tgtNAME1..'{/}');
 			end
+		end
+		if txtNameTARGET1:GetTextWidth() > 163 then
+			txtNameTARGET1:SetMaxWidth(163);
+			txtNameTARGET1:SetText('{s12}'..tgtNAME1..'{/}');
 		end
 		txtNameTARGET1:EnableHitTest(0);
 		if info.IsPC(session.GetTargetHandle()) == 1 then
@@ -534,31 +487,15 @@ function WL_TARGET_UPDATE()
 			local tgtNAME2 = info.GetFamilyName(session.GetTargetHandle());
 			txtNameTARGET2:SetMaxWidth(999);
 			txtNameTARGET2:SetText(tgtNAME2);
-			if txtNameTARGET2:GetTextWidth() > 163 then
-				txtNameTARGET2:SetText('{s19}'..tgtNAME2..'{/}');
+			for i=19,13,-1 do
 				if txtNameTARGET2:GetTextWidth() > 163 then
-					txtNameTARGET2:SetText('{s18}'..tgtNAME2..'{/}');
-					if txtNameTARGET2:GetTextWidth() > 163 then
-						txtNameTARGET2:SetText('{s17}'..tgtNAME2..'{/}');
-						if txtNameTARGET2:GetTextWidth() > 163 then
-							txtNameTARGET2:SetText('{s16}'..tgtNAME2..'{/}');
-							if txtNameTARGET2:GetTextWidth() > 163 then
-								txtNameTARGET2:SetText('{s15}'..tgtNAME2..'{/}');
-								if txtNameTARGET2:GetTextWidth() > 163 then
-									txtNameTARGET2:SetText('{s14}'..tgtNAME2..'{/}');
-									if txtNameTARGET2:GetTextWidth() > 163 then
-										txtNameTARGET2:SetText('{s13}'..tgtNAME2..'{/}');
-										if txtNameTARGET2:GetTextWidth() > 163 then
-											txtNameTARGET2:SetMaxWidth(163);
-											txtNameTARGET2:SetText('{s12}'..tgtNAME2..'{/}');
-										end
-									end
-								end
-							end
-						end
-					end
+					txtNameTARGET2:SetText('{s'..i..'}'..tgtNAME2..'{/}');
 				end
 			end
+			if txtNameTARGET2:GetTextWidth() > 163 then
+				txtNameTARGET2:SetMaxWidth(163);
+				txtNameTARGET2:SetText('{s12}'..tgtNAME2..'{/}');
+			end		
 			txtNameTARGET2:EnableHitTest(0);
 			txtNameTARGET2:SetOffset(0,13);
 		else
