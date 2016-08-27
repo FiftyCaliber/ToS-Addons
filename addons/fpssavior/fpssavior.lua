@@ -181,8 +181,8 @@ function FPSSAVIOR_TOGGLE()
 	elseif settings.saviorToggle == 2 then
 		settings.saviorToggle = 3;
 		
-		graphic.SetDrawActor(0);
-		graphic.SetDrawMonster(5);
+		graphic.SetDrawActor(-100);
+		graphic.SetDrawMonster(30);
 		graphic.EnableFastLoading(1);
 		graphic.EnableBlur(0);
 		graphic.EnableBloom(0);
