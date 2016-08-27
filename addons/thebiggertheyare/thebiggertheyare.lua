@@ -1,3 +1,5 @@
+CHAT_SYSTEM('The Bigger They Are {s8}The Harder They Fall...{/} loaded!');
+
 function THEBIGGERTHEYARE_ON_INIT(addon, frame)
 	addon:RegisterMsg("FPS_UPDATE", "TBTA_UPDATE");
 	addon:RegisterMsg("TARGET_SET", "TBTA_UPDATE");
