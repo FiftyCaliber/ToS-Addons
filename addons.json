@@ -39,5 +39,20 @@
 			"shrink",
 			"rotate"
 		]
+	},
+	{
+		"name" : "The Bigger They Are",
+		"file" : "thebiggertheyare",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.0",
+		"releaseTag" : "TBTAv1.0.0",
+		"unicode" : "🔫",
+		"description" : "Tired of not being able to target mounted players as a mouse mode user? Make their heads triple in size! This addon automatically triples the size of the mounted players head when you target their companion. Refer to the website for more information.",
+		"tags" : [
+			"grow",
+			"shrink",
+			"mouse",
+			"pets"
+		]
 	}
 ]
