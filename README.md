@@ -1,6 +1,6 @@
 # Tree of Savior Addons
 
-### FPS Savior v1.0.5
+### FPS Savior
 
 Similar to [adjv's](https://github.com/axjv) SFX Toggle however instead of changing settings based on your fps I made it so you can just toggle between 3 predefined settings High, Low, and Super Low. This is likely obvious but FPS Savior is not compatible SFX Toggle, use only one or the other if you use both they will conflict with each other.
 
@@ -19,7 +19,7 @@ Current Setting is displayed right below the FPS display's default location. Thi
 * `/fpssavior lock` to unlock/lock the settings display in order to move it around.
 * `/fpssavior default` to restore settings display to its default location.
 
-### Zoomy Plus v1.0.4
+### Zoomy Plus
 
 This mod is based off of and named after [Excrulon's](https://github.com/Excrulon) Zoomy v1.0.0 that he took off of the [Addon Manager](https://github.com/Excrulon/Tree-of-Savior-Addon-Manager) due to people whining about it being unfair. While it is true that it gives an unfair advantage in Team Battle League many people use it anyway and its available for anyone to download/install. Really IMC should just disable the custom camera zoom function while in Team Battle League fixing the issue all together. Honestly its more unfair to those who didn't install Zoomy before it was taken off the [Addon Manager](https://github.com/Excrulon/Tree-of-Savior-Addon-Manager) since those who already had it installed still have it. Besides, this can be used to capture some very neat pictures at angles normally not possible so I wanted to share.
 
@@ -43,7 +43,7 @@ Use Page Up to zoom in and Page Down to zoom out. Doing so while holding Left Ct
 * `/zplus default` to restore coordinate display to its default location.
 * `/zplus help` for help ingame.
 
-### Wonderland v1.0.2
+### Wonderland
 
 Wonderland allows you to increase/decrease the size of yourself and targets, as well as rotate the direction targets are facing, for neat pictures and all around fun. All of these changes are made on your screen only, and do not effect others gameplay. By typing `/wonderland` or `/wl` ingame you can open Wonderland's UI which looks like a book. This book has two pages (well techniquely four but w/e) the self page and the target page. You can switch between these pages by using the next and previous page buttons or by double right clicking the book.
 
@@ -63,7 +63,7 @@ Need to rotate the direction a target is facing? Use the slash commands mentione
 * `/wonderland rotate2 <num°>` or `/wl rotate2 <num°>` to rotate target to designated degrees twice.
  * Example: `/wl rotate2 20.93`
 
-### The Bigger They Are v1.0.0
+### The Bigger They Are
 
 I've been looking for a way to deal with targeting mounted companions in mouse mode for awhile. I and everyone else I've spoken with in the addon community can't seem to find a way to make selective targets untargetable or switch to the owner of that target. So... I made this instead, it's a bit funny but it works! This addon makes it so when you target a companion that is mounted, the mounted players head triples in size. This will also occur if you happen to successfully target the player that is mounted. If the player is no longer mounted and is targeted or their companion is targeted, their heads size will change back to normal. Now this doesn't fix the issue that you CAN target the companions however it gives you a larger target to actually lock on to.
 
