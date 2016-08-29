@@ -30,8 +30,8 @@
 		"name" : "Wonderland",
 		"file" : "wonderland",
 		"extension" : "ipf",
-		"fileVersion" : "v1.0.1",
-		"releaseTag" : "WLv1.0.1",
+		"fileVersion" : "v1.0.2",
+		"releaseTag" : "WLv1.0.2",
 		"unicode" : "🔫",
 		"description" : "Increase/Decrease the size of yourself/targets, and rotate the direction targets face, for neat pictures and all around fun (on your screen only). Type [ /wonderland ] or [ /wl ] ingame to open & close Wonderland. Refer to the website for more information.",
 		"tags" : [
