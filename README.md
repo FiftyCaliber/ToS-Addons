@@ -43,7 +43,7 @@ Use Page Up to zoom in and Page Down to zoom out. Doing so while holding Left Ct
 * `/zplus default` to restore coordinate display to its default location.
 * `/zplus help` for help ingame.
 
-### Wonderland v1.0.1
+### Wonderland v1.0.2
 
 Wonderland allows you to increase/decrease the size of yourself and targets, as well as rotate the direction targets are facing, for neat pictures and all around fun. All of these changes are made on your screen only, and do not effect others gameplay. By typing `/wonderland` or `/wl` ingame you can open Wonderland's UI which looks like a book. This book has two pages (well techniquely four but w/e) the self page and the target page. You can switch between these pages by using the next and previous page buttons or by double right clicking the book.
 
