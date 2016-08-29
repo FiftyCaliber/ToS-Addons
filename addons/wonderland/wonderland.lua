@@ -57,8 +57,8 @@ function WONDERLAND_CMD(command)
 		if type(arg1) == 'number' then
 			if arg1 >= 0 and arg1 <= 359.99 then
 				degrees = arg1
-				WL_DOUBLE_ROTATE();
-				CHAT_SYSTEM(info.GetName(session.GetTargetHandle()) .. ' rotated to ' .. degrees .. '° twice.');
+				CFSMActor.SetRotate(world.GetActor(session.GetTargetHandle()),degrees);
+				ReserveScript('WL_DOUBLE_ROTATE(degrees)',.25);
 			else
 				CHAT_SYSTEM('Invalid degrees. Minimum is 0 and maximum is 359.99.{nl}Example: /rotate2 20.93');
 			end
@@ -523,8 +523,7 @@ function WL_TARGET_DRINK_ME()
 	CFSMActor.ChangeScale(world.GetActor(session.GetTargetHandle()), 1 - (settings.amount / 100), settings.speed);
 end
 
-function WL_DOUBLE_ROTATE()
+function WL_DOUBLE_ROTATE(degrees)
 	CFSMActor.SetRotate(world.GetActor(session.GetTargetHandle()),degrees);
-	ReserveScript('WL_DOUBLE_ROTATE()',.25);
-	CFSMActor.SetRotate(world.GetActor(session.GetTargetHandle()),degrees);
+	CHAT_SYSTEM(info.GetName(session.GetTargetHandle()) .. ' rotated to ' .. degrees .. '° twice.');
 end
