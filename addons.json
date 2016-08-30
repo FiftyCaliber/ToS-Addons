@@ -54,5 +54,19 @@
 			"mouse",
 			"pets"
 		]
+	},
+	{
+		"name" : "Swapit",
+		"file" : "swapit",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.0",
+		"releaseTag" : "Sv1.0.0",
+		"unicode" : "🔫",
+		"description" : "Adds 2 additional weapon set slots to swap between using [ /swapit ] as long as you have the 'Weapon Swap' attribute. For help type [ /swapit help ] ingame or refer to the website for more information.",
+		"tags" : [
+			"weapon",
+			"swap",
+			"ui"
+		]
 	}
 ]
