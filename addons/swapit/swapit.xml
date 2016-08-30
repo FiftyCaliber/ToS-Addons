@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uiframe name="swapit" x="0" y="0" width="178" height="89" create="open">
+	<frame title="" stretch="true" snapclient="true" snapframe="true" layout_gravity="left top" margin="0 0 0 0" hideable="false"/>
+    <option visible="true" alwaysVisible="false" hideable="false" closebutton="false"/>
+	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="true"/>
+    <layer layerlevel="71"/>
+	<draw drawnotitlebar="false" drawtitlebar="false" drawframe="true"/>
+	<skin frameskin="none"/>
+	<controls>
+		<groupbox name="b1" parent="swapit" rect="0 0 84 42" draw="false" hittestbox="false" scrollbar="false"/>
+		<groupbox name="b2" parent="swapit" rect="0 0 84 42" draw="false" hittestbox="false" scrollbar="false"/>
+		<groupbox name="a1" parent="swapit" rect="0 0 84 42" draw="false" hittestbox="false" scrollbar="false"/>
+		<groupbox name="a2" parent="swapit" rect="0 0 84 42" draw="false" hittestbox="false" scrollbar="false"/>
+	
+		<slot name="slot0" parent="b1" rect="0 0 42 42" DropScp="SWAPIT_ITEM_DROP" PopScp="SWAPIT_ITEM_POP" index="0" movepop="false" dropsound="icon_get_down" oversound="button_cursor_over_3" picksound="icon_pick_up" skin="swap_slot1" texttooltip="{@st59}Place item here.{/}"/>
+		<slot name="slot1" parent="b1" rect="0 0 42 42" DropScp="SWAPIT_ITEM_DROP" PopScp="SWAPIT_ITEM_POP" index="1" movepop="false" dropsound="icon_get_down" oversound="button_cursor_over_3" picksound="icon_pick_up" skin="swap_slot2" texttooltip="{@st59}Place item here.{/}"/>
+		<slot name="slot2" parent="b2" rect="0 0 42 42" DropScp="SWAPIT_ITEM_DROP" PopScp="SWAPIT_ITEM_POP" index="2" movepop="false" dropsound="icon_get_down" oversound="button_cursor_over_3" picksound="icon_pick_up" skin="swap_slot1" texttooltip="{@st59}Place item here.{/}"/>
+		<slot name="slot3" parent="b2" rect="0 0 42 42" DropScp="SWAPIT_ITEM_DROP" PopScp="SWAPIT_ITEM_POP" index="3" movepop="false" dropsound="icon_get_down" oversound="button_cursor_over_3" picksound="icon_pick_up" skin="swap_slot2" texttooltip="{@st59}Place item here.{/}"/>
+		 
+		<slot name="slot4" parent="a1" rect="0 0 42 42" DropScp="SWAPIT_ITEM_DROP" PopScp="SWAPIT_ITEM_POP" index="4" movepop="false" dropsound="icon_get_down" oversound="button_cursor_over_3" picksound="icon_pick_up" skin="swap_slot1" texttooltip="{@st59}Place item here.{/}"/>
+		<slot name="slot5" parent="a1" rect="0 0 42 42" DropScp="SWAPIT_ITEM_DROP" PopScp="SWAPIT_ITEM_POP" index="5" movepop="false" dropsound="icon_get_down" oversound="button_cursor_over_3" picksound="icon_pick_up" skin="swap_slot2" texttooltip="{@st59}Place item here.{/}"/>
+		<slot name="slot6" parent="a2" rect="0 0 42 42" DropScp="SWAPIT_ITEM_DROP" PopScp="SWAPIT_ITEM_POP" index="6" movepop="false" dropsound="icon_get_down" oversound="button_cursor_over_3" picksound="icon_pick_up" skin="swap_slot1" texttooltip="{@st59}Place item here.{/}"/>
+		<slot name="slot7" parent="a2" rect="0 0 42 42" DropScp="SWAPIT_ITEM_DROP" PopScp="SWAPIT_ITEM_POP" index="7" movepop="false" dropsound="icon_get_down" oversound="button_cursor_over_3" picksound="icon_pick_up" skin="swap_slot2" texttooltip="{@st59}Place item here.{/}"/>
+	</controls>
+</uiframe>
