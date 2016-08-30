@@ -16,7 +16,7 @@ local default = {swapitSlot4 = "0", swapitSlot5 = "0", swapitSlot6 = "0", swapit
 local settings = {};
 
 function SWAPIT_LOADSETTINGS()
-	local s, err = acutil.loadJSON("../addons/swapit/settings.json");
+	local s, err = acutil.loadJSON("../addons/swapit/swapit.json");
 	if err then
 		settings = default;
 	else
@@ -31,7 +31,7 @@ function SWAPIT_LOADSETTINGS()
 end
 
 function SWAPIT_SAVESETTINGS()
-	acutil.saveJSON("../addons/swapit/settings.json", settings);
+	acutil.saveJSON("../addons/swapit/swapit.json", settings);
 end
 
 function SWAPIT_CMD(command)
