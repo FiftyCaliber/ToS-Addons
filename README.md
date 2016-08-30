@@ -73,7 +73,16 @@ Here is an example of head size being tripled. (The actual addon won't change th
 
 ### Swapit
 
-Detailed information to be added soon™.
+My main PvE character is a Cannoneer and for awhile now I've been annoyed by the fact that while I never have my cannon out other then when it auto swaps to it for Cannoneer skills I'm forced to have xbow + cannon in one of my swap lines for it to work. So I made another weapon swap to put my xbow + manamana and 2h bow in and swap between, leaving my xbow + cannon in the original weapon swap so it will auto swap to it when using Cannoneer skills. Heres an example of what I mean:
+
+![Swapit](http://i.imgur.com/aCvskAC.png)
+
+Now some might say this would be exploiting, however the game already lets you do this via hotbar slots this is just more user friendly. Also the left side slots which I added uses the same functions as cwSet to equip/unequip, it's just limited to weapons and has a UI. Not only that but I ADDED the requirement of having the 'Weapon Swap' attribute, since IMC doesn't seem to know how to do such things server side I did it for them (not that the attribute costs anything >.>).
+
+##### Slash Commands (Use the ingame macro system (f8) to use slash commands more efficiently.)
+* `/swapit` to swap your left side weapons.
+* `/swapit lock` to unlock/lock the Swapit display in order to move it around.
+* `/swapit default` to restore Swapit display to its default location.
 
 # Download
 
