@@ -71,6 +71,10 @@ I've been looking for a way to deal with targeting mounted companions in mouse m
 
 Here is an example of head size being tripled. (The actual addon won't change the size of your own characters head if you happen to target your companion while mounted.)
 
+### Swapit
+
+Detailed information to be added soon™.
+
 # Download
 
 Install addons via the [Addon Manager](https://github.com/Excrulon/Tree-of-Savior-Addon-Manager).
