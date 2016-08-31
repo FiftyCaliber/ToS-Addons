@@ -66,19 +66,31 @@ function SWAPIT_CMD(command)
 		return;
     end
 	if cmd == "help" then
-		CHAT_SYSTEM("Swapit Help:{nl}'/swapit' to swap your left side weapons.{nl}'/swapit lock' to unlock/lock the Swapit display in order to move it around.{nl}'/swapit default' to restore Swapit display to its default location.");
+		CHAT_SYSTEM("Swapit Help:{nl}'/swapit' to swap your left side weapons. Highly recommended to put this on an ingame macro (F8) so you can assign it to any key binding you like.{nl}'/swapit lock' to unlock/lock the Swapit display in order to move it around. Be sure to lock it again when you have it where you like, otherwise you can't interact with the slots.{nl}'/swapit default' to restore Swapit display to its default location.");
 		return;
 	end
 	if cmd == "lock" then
 		if _G["SWAPIT"]["settings"].lock == 1 then
 			_G["SWAPIT"]["settings"].lock = 0;
 			swapitFrame:EnableMove(1);
-			CHAT_SYSTEM("Swapit display unlocked.");
+			txtUnlocked:ShowWindow(1);
+			boxB1:EnableHitTest(0);
+			boxB2:EnableHitTest(0);
+			boxA1:EnableHitTest(0);
+			boxA2:EnableHitTest(0);
+			picLeft:EnableHitTest(0);
+			picRight:EnableHitTest(0);
 			SWAPIT_SAVESETTINGS();
 		else
 			_G["SWAPIT"]["settings"].lock = 1;
 			swapitFrame:EnableMove(0);
-			CHAT_SYSTEM("Swapit display locked.");
+			txtUnlocked:ShowWindow(0);
+			boxB1:EnableHitTest(1);
+			boxB2:EnableHitTest(1);
+			boxA1:EnableHitTest(1);
+			boxA2:EnableHitTest(1);
+			picLeft:EnableHitTest(1);
+			picRight:EnableHitTest(1);
 			SWAPIT_SAVESETTINGS();
 		end
 		return;
@@ -89,6 +101,13 @@ function SWAPIT_CMD(command)
 		swapitFrame:SetOffset(_G["SWAPIT"]["settings"].displayX, _G["SWAPIT"]["settings"].displayY);
 		_G["SWAPIT"]["settings"].lock = 1;
 		swapitFrame:EnableMove(0);
+		txtUnlocked:ShowWindow(0);
+		boxB1:EnableHitTest(1);
+		boxB2:EnableHitTest(1);
+		boxA1:EnableHitTest(1);
+		boxA2:EnableHitTest(1);
+		picLeft:EnableHitTest(1);
+		picRight:EnableHitTest(1);
 		SWAPIT_SAVESETTINGS();
 		return;
 	end
@@ -100,11 +119,6 @@ function SWAPIT_CREATE_FRAME()
 --	[Frame]
 	swapitFrame = ui.GetFrame("swapit");
 	swapitFrame:EnableHitTest(1);
-	if _G["SWAPIT"]["settings"].lock == 0 then
-		swapitFrame:EnableMove(1);
-	else
-		swapitFrame:EnableMove(0);
-	end
 	swapitFrame:SetOffset(_G["SWAPIT"]["settings"].displayX, _G["SWAPIT"]["settings"].displayY);
 	swapitFrame.isDragging = false;
 	swapitFrame:SetEventScript(ui.LBUTTONDOWN, "SWAPIT_START_DRAG");
@@ -186,6 +200,13 @@ function SWAPIT_CREATE_FRAME()
 	picRight:SetEnableStretch(1);
 	picRight:SetTextTooltip("{@st59}This is your normal weapon swap.{/}");
 	
+--	[Unlocked Text]
+	txtUnlocked = swapitFrame:CreateOrGetControl("richtext", "txtUnlocked",0,0,0,0);
+	txtUnlocked = tolua.cast(txtUnlocked,"ui::CRichText");
+	txtUnlocked:SetText("{@st44}{#FFFFFF}{s30}{b}Unlocked{/}{/}{/}{/}")
+	txtUnlocked:SetGravity(ui.CENTER_HORZ,ui.CENTER_VERT);
+	txtUnlocked:EnableHitTest(0);
+	
 --	[Show UI Check]
 	local pc = GetMyPCObject();
 	if pc == nil then
@@ -201,6 +222,27 @@ function SWAPIT_CREATE_FRAME()
 	
 --	[Update Swapit Icons]
 	SWAPIT_UPDATE()
+	
+--	[Lock Check]
+	if _G["SWAPIT"]["settings"].lock == 0 then
+		swapitFrame:EnableMove(1);
+		txtUnlocked:ShowWindow(1);
+		boxB1:EnableHitTest(0);
+		boxB2:EnableHitTest(0);
+		boxA1:EnableHitTest(0);
+		boxA2:EnableHitTest(0);
+		picLeft:EnableHitTest(0);
+		picRight:EnableHitTest(0);
+	else
+		swapitFrame:EnableMove(0);
+		txtUnlocked:ShowWindow(0);
+		boxB1:EnableHitTest(1);
+		boxB2:EnableHitTest(1);
+		boxA1:EnableHitTest(1);
+		boxA2:EnableHitTest(1);
+		picLeft:EnableHitTest(1);
+		picRight:EnableHitTest(1);
+	end
 end
 
 function SWAPIT_ITEM_DROP(parent, ctrl, argStr, argNum)
