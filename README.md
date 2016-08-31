@@ -81,7 +81,7 @@ Now some might say this would be exploiting, however the game already lets you d
 
 ##### Slash Commands (Use the ingame macro system (f8) to use slash commands more efficiently.)
 * `/swapit` to swap your left side weapons.
-* `/swapit lock` to unlock/lock the Swapit display in order to move it around.
+* `/swapit lock` to unlock/lock the Swapit display in order to move it around. Be sure to lock it again when you have it where you like, otherwise you can't interact with the slots.
 * `/swapit default` to restore Swapit display to its default location.
 
 # Download
