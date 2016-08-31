@@ -1,3 +1,4 @@
+_G["SWAPIT"] = {};
 local acutil = require("acutil");
 CHAT_SYSTEM("Swapit loaded! Help: /swapit help");
 
@@ -8,30 +9,47 @@ function SWAPIT_ON_INIT(addon, frame)
 	addon:RegisterMsg("WEAPONSWAP_SUCCESS","WS_SLOT_SUCCESS");
 	addon:RegisterMsg("ABILITY_LIST_GET","SWAPIT_SHOW_UI");
 	addon:RegisterMsg("GAME_START_3SEC", "REMOVEOLDWS_3SEC");
+	
 	SWAPIT_LOADSETTINGS();
 	SWAPIT_CREATE_FRAME();
 end
 
-local default = {swapitSlot4 = "0", swapitSlot5 = "0", swapitSlot6 = "0", swapitSlot7 = "0", swapitLine = 1, displayX = 505, displayY = 955, lock = 1};
-local settings = {};
-
 function SWAPIT_LOADSETTINGS()
-	local s, err = acutil.loadJSON("../addons/swapit/swapit.json");
-	if err then
-		settings = default;
+	local settings, error = acutil.loadJSON("../addons/swapit/settings.json");
+	if error then
+		SWAPIT_SAVESETTINGS();
 	else
-		settings = s;
-		for k,v in pairs(default) do
-			if s[k] == nil then
-				settings[k] = v;
-			end
-		end
+		_G["SWAPIT"]["settings"] = settings;
 	end
-	SWAPIT_SAVESETTINGS();
+	local charID = info.GetCID(session.GetMyHandle());
+	local data, error = acutil.loadJSON("../addons/swapit/" .. charID .. ".json");
+	if error then
+		SWAPIT_SAVESETTINGS();
+	else
+		_G["SWAPIT"]["slots"] = data;
+	end
 end
 
 function SWAPIT_SAVESETTINGS()
-	acutil.saveJSON("../addons/swapit/swapit.json", settings);
+	if _G["SWAPIT"]["settings"] == nil then
+		_G["SWAPIT"]["settings"] = {
+			displayX = 505;
+			displayY = 955;
+			lock = 1;
+		};
+	end
+	acutil.saveJSON("../addons/swapit/settings.json", _G["SWAPIT"]["settings"]);
+	if _G["SWAPIT"]["slots"] == nil then
+		_G["SWAPIT"]["slots"] = {
+			swapitSlot4 = "0";
+			swapitSlot5 = "0";
+			swapitSlot6 = "0";
+			swapitSlot7 = "0";
+			swapitLine = 1;
+		};
+	end
+	local charID = info.GetCID(session.GetMyHandle());
+	acutil.saveJSON("../addons/swapit/" .. charID .. ".json", _G["SWAPIT"]["slots"]);
 end
 
 function SWAPIT_CMD(command)
@@ -52,13 +70,13 @@ function SWAPIT_CMD(command)
 		return;
 	end
 	if cmd == "lock" then
-		if settings.lock == 1 then
-			settings.lock = 0;
+		if _G["SWAPIT"]["settings"].lock == 1 then
+			_G["SWAPIT"]["settings"].lock = 0;
 			swapitFrame:EnableMove(1);
 			CHAT_SYSTEM("Swapit display unlocked.");
 			SWAPIT_SAVESETTINGS();
 		else
-			settings.lock = 1;
+			_G["SWAPIT"]["settings"].lock = 1;
 			swapitFrame:EnableMove(0);
 			CHAT_SYSTEM("Swapit display locked.");
 			SWAPIT_SAVESETTINGS();
@@ -66,10 +84,10 @@ function SWAPIT_CMD(command)
 		return;
 	end
 	if cmd == "default" then
-		settings.displayX = 505;
-		settings.displayY = 955;
-		swapitFrame:SetOffset(settings.displayX, settings.displayY);
-		settings.lock = 1;
+		_G["SWAPIT"]["settings"].displayX = 505;
+		_G["SWAPIT"]["settings"].displayY = 955;
+		swapitFrame:SetOffset(_G["SWAPIT"]["settings"].displayX, _G["SWAPIT"]["settings"].displayY);
+		_G["SWAPIT"]["settings"].lock = 1;
 		swapitFrame:EnableMove(0);
 		SWAPIT_SAVESETTINGS();
 		return;
@@ -82,12 +100,12 @@ function SWAPIT_CREATE_FRAME()
 --	[Frame]
 	swapitFrame = ui.GetFrame("swapit");
 	swapitFrame:EnableHitTest(1);
-	if settings.lock == 0 then
+	if _G["SWAPIT"]["settings"].lock == 0 then
 		swapitFrame:EnableMove(1);
 	else
 		swapitFrame:EnableMove(0);
 	end
-	swapitFrame:SetOffset(settings.displayX, settings.displayY);
+	swapitFrame:SetOffset(_G["SWAPIT"]["settings"].displayX, _G["SWAPIT"]["settings"].displayY);
 	swapitFrame.isDragging = false;
 	swapitFrame:SetEventScript(ui.LBUTTONDOWN, "SWAPIT_START_DRAG");
 	swapitFrame:SetEventScript(ui.LBUTTONUP, "SWAPIT_END_DRAG");
@@ -116,7 +134,7 @@ function SWAPIT_CREATE_FRAME()
 
 --	[Left]
 	boxA1 = swapitFrame:GetChild("a1");
-	if settings.swapitLine == 0 then
+	if _G["SWAPIT"]["slots"].swapitLine == 0 then
 		boxA1:SetOffset(0,0);
 	else
 		boxA1:SetOffset(0,47);
@@ -126,7 +144,7 @@ function SWAPIT_CREATE_FRAME()
 	slotA1R:SetOffset(42,0);
 
 	boxA2 = swapitFrame:GetChild("a2");
-	if settings.swapitLine == 0 then
+	if _G["SWAPIT"]["slots"].swapitLine == 0 then
 		boxA2:SetOffset(0,47);
 	else
 		boxA2:SetOffset(0,0);
@@ -230,7 +248,7 @@ function SWAPIT_ITEM_DROP(parent, ctrl, argStr, argNum)
 	if slotIndex <= 3 then
 		session.SetWeaponQuicSlot(slotIndex, invItem:GetIESID());
 	else
-		settings["swapitSlot" .. slotIndex] = invItem:GetIESID();
+		_G["SWAPIT"]["slots"]["swapitSlot" .. slotIndex] = invItem:GetIESID();
 		SWAPIT_SAVESETTINGS();
 	end
 	SET_SLOT_ITEM_IMANGE(slot, invItem);
@@ -244,7 +262,7 @@ function SWAPIT_ITEM_POP(parent, ctrl)
 	if slotIndex <= 3 then
 		session.SetWeaponQuicSlot(slotIndex, "");
 	else
-		settings["swapitSlot" .. slotIndex] = "0";
+		_G["SWAPIT"]["slots"]["swapitSlot" .. slotIndex] = "0";
 		SWAPIT_SAVESETTINGS();
 	end
 end
@@ -276,7 +294,7 @@ function SWAPIT_2H_WEAPON_CHECK(obj, swapitFrame, slotIndex)
 		if slotIndex <= 3 then
 			session.SetWeaponQuicSlot(etcSlot:GetSlotIndex(), "");
 		else
-			settings["swapitSlot" .. etcSlot:GetSlotIndex()] = "0";
+			_G["SWAPIT"]["slots"]["swapitSlot" .. etcSlot:GetSlotIndex()] = "0";
 			SWAPIT_SAVESETTINGS();
 		end
 	else
@@ -318,7 +336,7 @@ function SWAPIT_2H_WEAPON_CHECK(obj, swapitFrame, slotIndex)
 		if slotIndex <= 3 then
 			session.SetWeaponQuicSlot(etcSlot:GetSlotIndex(), "");
 		else
-			settings["swapitSlot" .. etcSlot:GetSlotIndex()] = "0";
+			_G["SWAPIT"]["slots"]["swapitSlot" .. etcSlot:GetSlotIndex()] = "0";
 			SWAPIT_SAVESETTINGS();
 		end
 	end
@@ -336,7 +354,7 @@ function SWAPIT_UPDATE()
 			end
 			etcSlot = tolua.cast(etcSlot, "ui::CSlot");
 			
-			local guid = settings["swapitSlot" .. i];
+			local guid = _G["SWAPIT"]["slots"]["swapitSlot" .. i];
 			if guid ~= "0" then 
 				local item = GET_ITEM_BY_GUID(guid, 1);
 				if item ~= nil then
@@ -354,7 +372,7 @@ function SWAPIT_UPDATE()
 			end
 			etcSlot = tolua.cast(etcSlot, "ui::CSlot");
 			
-			local guid = settings["swapitSlot" .. i];
+			local guid = _G["SWAPIT"]["slots"]["swapitSlot" .. i];
 			if guid ~= "0" then 
 				local item = GET_ITEM_BY_GUID(guid, 1);
 				if item ~= nil then
@@ -386,42 +404,42 @@ function SWAPIT_TOGGLE_SWAP()
 		return;
 	end
 	
-	if settings.swapitLine == 1 then
-		settings.swapitLine = 0;
+	if _G["SWAPIT"]["slots"].swapitLine == 1 then
+		_G["SWAPIT"]["slots"].swapitLine = 0;
 		SWAPIT_SAVESETTINGS();
 		
 		boxA1:SetOffset(0,0);
 		boxA2:SetOffset(0,47);
 		
 --		[Equip A2] (aka slots 6 & 7)
-		if settings.swapitSlot6 == "0" then
+		if _G["SWAPIT"]["slots"].swapitSlot6 == "0" then
 			local equipItem = session.GetEquipItemBySpot(8);
 			if equipItem:GetIESID() ~= "0" then
 				item.UnEquip(8);
 			end
 		else
 			for i=1,3 do
-				ITEM_EQUIP_MSG(session.GetInvItemByGuid(settings.swapitSlot6),"RH");
+				ITEM_EQUIP_MSG(session.GetInvItemByGuid(_G["SWAPIT"]["slots"].swapitSlot6),"RH");
 			end
 		end
 		ReserveScript("SWAPIT_DELAYED_A2()",.25);
 		imcSound.PlaySoundEvent("sys_weapon_swap");
 	else
-		settings.swapitLine = 1;
+		_G["SWAPIT"]["slots"].swapitLine = 1;
 		SWAPIT_SAVESETTINGS();
 		
 		boxA1:SetOffset(0,47);
 		boxA2:SetOffset(0,0);
 		
 --		[Equip A1] (aka slots 4 & 5)
-		if settings.swapitSlot4 == "0" then
+		if _G["SWAPIT"]["slots"].swapitSlot4 == "0" then
 			local equipItem = session.GetEquipItemBySpot(8);
 			if equipItem:GetIESID() ~= "0" then
 				item.UnEquip(8);
 			end
 		else
 			for i=1,3 do
-				ITEM_EQUIP_MSG(session.GetInvItemByGuid(settings.swapitSlot4),"RH");
+				ITEM_EQUIP_MSG(session.GetInvItemByGuid(_G["SWAPIT"]["slots"].swapitSlot4),"RH");
 			end
 		end
 		ReserveScript("SWAPIT_DELAYED_A1()",.25);
@@ -530,27 +548,27 @@ function SWAPIT_SHOW_UI()
 end
 
 function SWAPIT_DELAYED_A2()
-	if settings.swapitSlot7 == "0" then
+	if _G["SWAPIT"]["slots"].swapitSlot7 == "0" then
 		local equipItem = session.GetEquipItemBySpot(9);
 		if equipItem:GetIESID() ~= "0" then
 			item.UnEquip(9);
 		end
 	else
 		for i=1,3 do
-			ITEM_EQUIP_MSG(session.GetInvItemByGuid(settings.swapitSlot7),"LH");
+			ITEM_EQUIP_MSG(session.GetInvItemByGuid(_G["SWAPIT"]["slots"].swapitSlot7),"LH");
 		end
 	end
 end
 
 function SWAPIT_DELAYED_A1()
-	if settings.swapitSlot5 == "0" then
+	if _G["SWAPIT"]["slots"].swapitSlot5 == "0" then
 		local equipItem = session.GetEquipItemBySpot(9);
 		if equipItem:GetIESID() ~= "0" then
 			item.UnEquip(9);
 		end
 	else
 		for i=1,3 do
-			ITEM_EQUIP_MSG(session.GetInvItemByGuid(settings.swapitSlot5),"LH");
+			ITEM_EQUIP_MSG(session.GetInvItemByGuid(_G["SWAPIT"]["slots"].swapitSlot5),"LH");
 		end
 	end	
 end
@@ -560,8 +578,8 @@ function SWAPIT_START_DRAG()
 end
 
 function SWAPIT_END_DRAG()
-	settings.displayX = swapitFrame:GetX();
-	settings.displayY = swapitFrame:GetY();
+	_G["SWAPIT"]["settings"].displayX = swapitFrame:GetX();
+	_G["SWAPIT"]["settings"].displayY = swapitFrame:GetY();
 	SWAPIT_SAVESETTINGS();
 	swapitFrame.isDragging = false;
 end
