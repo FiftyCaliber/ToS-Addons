@@ -1,48 +1,47 @@
--- Functions ZOOMY_CLAMP(), ZOOMY_IN(), ZOOMY_OUT(), and the 'Zoomy' name are taken from Excrulon's Zoomy v1.0.0 addon.
-local acutil = require('acutil');
-local settings = {}
+-- Functions ZOOMY_CLAMP(), ZOOMY_IN(), ZOOMY_OUT(), and the "Zoomy" name are taken from Excrulon's Zoomy v1.0.0 addon.
+_G["ZOOMYPLUS"] = {};
+local acutil = require("acutil");
 local zplusTimer = imcTime.GetAppTime()
 local zplusTimeElapsed = 0
 local zplusSwitch = 1
-CHAT_SYSTEM('Zoomy Plus loaded! Help: /zplus help');
+CHAT_SYSTEM("Zoomy Plus loaded! Help: /zplus help");
 
 function ZOOMYPLUS_ON_INIT(addon, frame)
 	ZOOMYPLUS_LOADSETTINGS();
 	frame:ShowWindow(1);
 	frame:RunUpdateScript("ZOOMY_KEYPRESS", 0, 0, 0, 1);
-	addon:RegisterMsg('FPS_UPDATE', 'ZOOMYPLUS_UPDATE');
-	acutil.slashCommand('/zplus',ZOOMYPLUS_CMD);
-	if currentZoom == nil or currentZoom == '' then
+	addon:RegisterMsg("FPS_UPDATE", "ZOOMYPLUS_UPDATE");
+	acutil.slashCommand("/zplus",ZOOMYPLUS_CMD);
+	if currentZoom == nil or currentZoom == "" then
 		currentZoom = 236;
 	end
-	if currentX == nil or currentX == '' then
+	if currentX == nil or currentX == "" then
 		currentX = 45;
 	end
-	if currentY == nil or currentY == '' then
+	if currentY == nil or currentY == "" then
 		currentY = 38;
 	end
 end
 
-local default = {display = 1, displayX = 510, displayY = 880, lock = 1};
-local settings = {};
-
 function ZOOMYPLUS_LOADSETTINGS()
-	local s, err = acutil.loadJSON("../addons/zoomyplus/settings.json");
-	if err then
-		settings = default;
+	local settings, error = acutil.loadJSON("../addons/zoomyplus/settings.json");
+	if error then
+		ZOOMYPLUS_SAVESETTINGS();
 	else
-		settings = s;
-		for k,v in pairs(default) do
-			if s[k] == nil then
-				settings[k] = v;
-			end
-		end
+		_G["ZOOMYPLUS"]["settings"] = settings;
 	end
-	ZOOMYPLUS_SAVESETTINGS();
 end
 
 function ZOOMYPLUS_SAVESETTINGS()
-	acutil.saveJSON("../addons/zoomyplus/settings.json", settings);
+	if _G["ZOOMYPLUS"]["settings"] == nil then
+		_G["ZOOMYPLUS"]["settings"] = {
+			display = 1;
+			displayX = 510;
+			displayY = 880;
+			lock = 1;
+		};
+	end
+	acutil.saveJSON("../addons/zoomyplus/settings.json", _G["ZOOMYPLUS"]["settings"]);
 end
 
 local ZOOM_AMOUNT = 2;
@@ -53,34 +52,34 @@ local MINIMUM_XY = 0;
 local MAXIMUM_XY = 359;
 
 function ZOOMYPLUS_CMD(command)
-	local cmd = '';
+	local cmd = "";
 	if #command > 0 then
         cmd = table.remove(command, 1);
     else
-		CHAT_SYSTEM('Invalid command. Available commands:{nl}/zplus help{nl}/zplus zoom <num>{nl}/zplus swap <num1> <num2>{nl}/zplus rotate <x> <y>{nl}/zplus reset{nl}/zplus reset xy{nl}/zplus display{nl}/zplus lock{nl}/zplus default');
+		CHAT_SYSTEM("Invalid command. Available commands:{nl}/zplus help{nl}/zplus zoom <num>{nl}/zplus swap <num1> <num2>{nl}/zplus rotate <x> <y>{nl}/zplus reset{nl}/zplus reset xy{nl}/zplus display{nl}/zplus lock{nl}/zplus default");
         return;
     end
-	if cmd == 'help' then
-		CHAT_SYSTEM('Zoomy Plus Help:{nl}Use Page Up to zoom in and Page Down to zoom out. Doing so while holding Left Ctrl makes zooming in and out 5 times faster. Also while holding Left Ctrl you can press and hold Right Click to rotate the camera by moving the mouse!{nl}"/zplus zoom <num>" to go to a specific zoom level anywhere between 50 and 1500!{nl}Example: /zplus zoom 800{nl}"/zplus swap <num1> <num2>" to swap between two zoom levels!{nl}Example: /zplus swap 350 500{nl}"/zplus rotate <x> <y>" to rotate camera to specific coordinates between 0 and 359!{nl}Example: /zplus rotate 90 10{nl}"/zplus reset" to restore default xy positioning and zoom level.{nl}"/zplus reset xy" to restore default positioning to xy only.{nl}"/zplus display" to show/hide the coordinate display.{nl}"/zplus lock" to unlock/lock the coordinate display in order to move it around.{nl}"/zplus default" to restore coordinate display to its default location.');
+	if cmd == "help" then
+		CHAT_SYSTEM("Zoomy Plus Help:{nl}Use Page Up to zoom in and Page Down to zoom out. Doing so while holding Left Ctrl makes zooming in and out 5 times faster. Also while holding Left Ctrl you can press and hold Right Click to rotate the camera by moving the mouse!{nl}'/zplus zoom <num>' to go to a specific zoom level anywhere between 50 and 1500!{nl}Example: /zplus zoom 800{nl}'/zplus swap <num1> <num2>' to swap between two zoom levels!{nl}Example: /zplus swap 350 500{nl}'/zplus rotate <x> <y>' to rotate camera to specific coordinates between 0 and 359!{nl}Example: /zplus rotate 90 10{nl}'/zplus reset' to restore default xy positioning and zoom level.{nl}'/zplus reset xy' to restore default positioning to xy only.{nl}'/zplus display' to show/hide the coordinate display.{nl}'/zplus lock' to unlock/lock the coordinate display in order to move it around.{nl}'/zplus default' to restore coordinate display to its default location.");
 		return;
 	end
-	if cmd == 'zoom' then
+	if cmd == "zoom" then
 		local zoom1 = tonumber(table.remove(command, 1));
-		if type(zoom1) == 'number' then
+		if type(zoom1) == "number" then
 			if zoom1 >= MINIMUM_ZOOM and zoom1 <= MAXIMUM_ZOOM then
 				currentZoom = zoom1;
 				camera.CustomZoom(currentZoom);
 				ZOOMYPLUS_SETTEXT();
 			else
-				CHAT_SYSTEM('Invalid zoom level. Minimum is 50 and maximum is 1500.');
+				CHAT_SYSTEM("Invalid zoom level. Minimum is 50 and maximum is 1500.");
 			end
 		end
 		return;
 	end
-	if cmd == 'swap' then
+	if cmd == "swap" then
 		local swap1 = tonumber(table.remove(command, 1));
 		local swap2 = tonumber(table.remove(command, 1));
-		if type(swap1) == 'number' and type(swap2) == 'number' then
+		if type(swap1) == "number" and type(swap2) == "number" then
 			if swap1 >= MINIMUM_ZOOM and swap1 <= MAXIMUM_ZOOM and swap2 >= MINIMUM_ZOOM and swap2 <= MAXIMUM_ZOOM then
 				if currentZoom == swap1 then
 					currentZoom = swap2;
@@ -92,15 +91,15 @@ function ZOOMYPLUS_CMD(command)
 					ZOOMYPLUS_SETTEXT();
 				end
 			else
-				CHAT_SYSTEM('Invalid zoom level. Minimum is 50 and maximum is 1500.');
+				CHAT_SYSTEM("Invalid zoom level. Minimum is 50 and maximum is 1500.");
 			end
 		end
 		return;
 	end
-	if cmd == 'rotate' then
+	if cmd == "rotate" then
 		local x1 = tonumber(table.remove(command, 1));
 		local y1 = tonumber(table.remove(command, 1));
-		if type(x1) == 'number' and type(y1) == 'number' then
+		if type(x1) == "number" and type(y1) == "number" then
 			if x1 >= MINIMUM_XY and x1 <= MAXIMUM_XY and y1 >= MINIMUM_XY and y1 <= MAXIMUM_XY then
 				currentX = x1;
 				currentY = y1;
@@ -108,13 +107,13 @@ function ZOOMYPLUS_CMD(command)
 				camera.CustomZoom(currentZoom);
 				ZOOMYPLUS_SETTEXT();
 			else
-				CHAT_SYSTEM('Invalid x y values. Minimum for both is 0 and maximum for both is 359.');
+				CHAT_SYSTEM("Invalid x y values. Minimum for both is 0 and maximum for both is 359.");
 			end
 		end
 		return;
 	end
-	if cmd == 'reset' then
-		local resetcmd = '';
+	if cmd == "reset" then
+		local resetcmd = "";
 		if #command > 0 then
 			resetcmd = table.remove(command, 1);			
 		else
@@ -125,7 +124,7 @@ function ZOOMYPLUS_CMD(command)
 			ZOOMYPLUS_SETTEXT();
 			return;
 		end
-		if resetcmd == 'xy' then
+		if resetcmd == "xy" then
 			currentX = 45;
 			currentY = 38;
 			camera.CamRotate(38, 45);
@@ -134,10 +133,10 @@ function ZOOMYPLUS_CMD(command)
 			return;
 		end
 	end
-	if cmd == 'display' then
-		if settings.display == 1 then
-			settings.display = 0;
-			settings.lock = 1;
+	if cmd == "display" then
+		if _G["ZOOMYPLUS"]["settings"].display == 1 then
+			_G["ZOOMYPLUS"]["settings"].display = 0;
+			_G["ZOOMYPLUS"]["settings"].lock = 1;
 			zoomyplusFrame:EnableHitTest(0);
 			zoomyplusFrame:EnableMove(0);
 			zoomyplusFrame.EnableHittestFrame(zoomyplusFrame, 0);
@@ -145,39 +144,39 @@ function ZOOMYPLUS_CMD(command)
 			ZOOMYPLUS_SAVESETTINGS();
 			return;
 		else
-			settings.display = 1;
+			_G["ZOOMYPLUS"]["settings"].display = 1;
 			zoomyplusFrame:ShowWindow(1)
 			ZOOMYPLUS_SAVESETTINGS();
 			return;
 		end
 	end
-	if cmd == 'lock' then
-		if settings.lock == 1 then
-			settings.lock = 0;
+	if cmd == "lock" then
+		if _G["ZOOMYPLUS"]["settings"].lock == 1 then
+			_G["ZOOMYPLUS"]["settings"].lock = 0;
 			zoomyplusFrame:EnableHitTest(1);
 			zoomyplusZText:EnableHitTest(0);
 			zoomyplusXText:EnableHitTest(0);
 			zoomyplusYText:EnableHitTest(0);
 			zoomyplusFrame:EnableMove(1);
 			zoomyplusFrame.EnableHittestFrame(zoomyplusFrame, 1);
-			CHAT_SYSTEM('Coordinate display unlocked.');
+			CHAT_SYSTEM("Coordinate display unlocked.");
 			ZOOMYPLUS_SAVESETTINGS();
 		else
-			settings.lock = 1;
+			_G["ZOOMYPLUS"]["settings"].lock = 1;
 			zoomyplusFrame:EnableHitTest(0);
 			zoomyplusFrame:EnableMove(0);
 			zoomyplusFrame.EnableHittestFrame(zoomyplusFrame, 0);
-			CHAT_SYSTEM('Coordinate display locked.');
+			CHAT_SYSTEM("Coordinate display locked.");
 			ZOOMYPLUS_SAVESETTINGS();
 		end
 		return;
 	end
-	if cmd == 'default' then
-		settings.displayX = 510;
-		settings.displayY = 880;
-		settings.display = 1;
-		settings.lock = 1;
-		zoomyplusFrame:SetOffset(settings.displayX, settings.displayY);
+	if cmd == "default" then
+		_G["ZOOMYPLUS"]["settings"].displayX = 510;
+		_G["ZOOMYPLUS"]["settings"].displayY = 880;
+		_G["ZOOMYPLUS"]["settings"].display = 1;
+		_G["ZOOMYPLUS"]["settings"].lock = 1;
+		zoomyplusFrame:SetOffset(_G["ZOOMYPLUS"]["settings"].displayX, _G["ZOOMYPLUS"]["settings"].displayY);
 		zoomyplusFrame:EnableHitTest(0);
 		zoomyplusFrame:EnableMove(0);
 		zoomyplusFrame.EnableHittestFrame(zoomyplusFrame, 0);
@@ -185,7 +184,7 @@ function ZOOMYPLUS_CMD(command)
 		ZOOMYPLUS_SAVESETTINGS();
 		return;
 	end
-	CHAT_SYSTEM('Invalid command. Available commands:{nl}/zplus help{nl}/zplus zoom <num>{nl}/zplus swap <num1> <num2>{nl}/zplus rotate <x> <y>{nl}/zplus reset{nl}/zplus reset xy{nl}/zplus display{nl}/zplus lock{nl}/zplus default');
+	CHAT_SYSTEM("Invalid command. Available commands:{nl}/zplus help{nl}/zplus zoom <num>{nl}/zplus swap <num1> <num2>{nl}/zplus rotate <x> <y>{nl}/zplus reset{nl}/zplus reset xy{nl}/zplus display{nl}/zplus lock{nl}/zplus default");
 	return;
 end
 
@@ -194,12 +193,12 @@ function ZOOMYPLUS_UPDATE(frame, msg, argStr, argNum)
 		frame:ShowWindow(1);
 	end
 	
-	zoomyplusFrame = ui.GetFrame('zplusframe');
-	if zoomyplusFrame == nil and settings.display == 1 then
-		zoomyplusFrame = ui.CreateNewFrame('bandicam','zplusframe');
+	zoomyplusFrame = ui.GetFrame("zplusframe");
+	if zoomyplusFrame == nil and _G["ZOOMYPLUS"]["settings"].display == 1 then
+		zoomyplusFrame = ui.CreateNewFrame("zoomyplus","zplusframe");
 		zoomyplusFrame:SetBorder(0, 0, 0, 0);
 		zoomyplusFrame:Resize(60,60);
-		zoomyplusFrame:SetOffset(settings.displayX, settings.displayY);
+		zoomyplusFrame:SetOffset(_G["ZOOMYPLUS"]["settings"].displayX, _G["ZOOMYPLUS"]["settings"].displayY);
 		zoomyplusFrame:ShowWindow(1)
 		zoomyplusFrame:SetLayerLevel(61);
 		zoomyplusFrame.isDragging = false;
@@ -208,30 +207,30 @@ function ZOOMYPLUS_UPDATE(frame, msg, argStr, argNum)
 		zoomyplusFrame:EnableHitTest(0);
 		zoomyplusFrame:EnableMove(0);
 		zoomyplusFrame.EnableHittestFrame(zoomyplusFrame, 0);
-		settings.lock = 1;
+		_G["ZOOMYPLUS"]["settings"].lock = 1;
 		ZOOMYPLUS_SAVESETTINGS();
 		
-		zoomyplusZText = zoomyplusFrame:CreateOrGetControl('richtext','zoomyplusZText',0,-20,0,0);
-		zoomyplusZText = tolua.cast(zoomyplusZText,'ui::CRichText');
+		zoomyplusZText = zoomyplusFrame:CreateOrGetControl("richtext","zoomyplusZText",0,-20,0,0);
+		zoomyplusZText = tolua.cast(zoomyplusZText,"ui::CRichText");
 		zoomyplusZText:SetGravity(ui.LEFT,ui.CENTER_VERT);
-		zoomyplusZText:SetText('{s16}{#B81313}{ol}Z : ' .. tonumber(currentZoom));
+		zoomyplusZText:SetText("{s16}{#B81313}{ol}Z : " .. currentZoom);
 
-		zoomyplusXText = zoomyplusFrame:CreateOrGetControl('richtext','zoomyplusXText',0,0,0,0);
-		zoomyplusXText = tolua.cast(zoomyplusXText,'ui::CRichText');
+		zoomyplusXText = zoomyplusFrame:CreateOrGetControl("richtext","zoomyplusXText",0,0,0,0);
+		zoomyplusXText = tolua.cast(zoomyplusXText,"ui::CRichText");
 		zoomyplusXText:SetGravity(ui.LEFT,ui.CENTER_VERT);
-		zoomyplusXText:SetText('{s16}{#B81313}{ol}X : ' .. tonumber(currentX));
+		zoomyplusXText:SetText("{s16}{#B81313}{ol}X : " .. currentX);
 
-		zoomyplusYText = zoomyplusFrame:CreateOrGetControl('richtext','zoomyplusYText',0,20,0,0);
-		zoomyplusYText = tolua.cast(zoomyplusYText,'ui::CRichText');
+		zoomyplusYText = zoomyplusFrame:CreateOrGetControl("richtext","zoomyplusYText",0,20,0,0);
+		zoomyplusYText = tolua.cast(zoomyplusYText,"ui::CRichText");
 		zoomyplusYText:SetGravity(ui.LEFT,ui.CENTER_VERT);
-		zoomyplusYText:SetText('{s16}{#B81313}{ol}Y : ' .. tonumber(currentY));
+		zoomyplusYText:SetText("{s16}{#B81313}{ol}Y : " .. currentY);
 	end
-	if settings.display == 1 and not zoomyplusFrame.isDragging then
-		zoomyplusFrame:SetOffset(settings.displayX, settings.displayY);
+	if _G["ZOOMYPLUS"]["settings"].display == 1 and not zoomyplusFrame.isDragging then
+		zoomyplusFrame:SetOffset(_G["ZOOMYPLUS"]["settings"].displayX, _G["ZOOMYPLUS"]["settings"].displayY);
 	end
-	cameraFrame = ui.GetFrame('cameraframe');
+	cameraFrame = ui.GetFrame("cameraframe");
 	if cameraFrame == nil then
-		cameraFrame = ui.CreateNewFrame('bandicam','cameraframe');
+		cameraFrame = ui.CreateNewFrame("bandicam","cameraframe");
 		camera.CamRotate(currentY, currentX);
 		camera.CustomZoom(currentZoom);
 	end
@@ -242,17 +241,17 @@ function ZOOMYPLUS_START_DRAG()
 end
 
 function ZOOMYPLUS_END_DRAG()
-	settings.displayX = zoomyplusFrame:GetX();
-	settings.displayY = zoomyplusFrame:GetY();
+	_G["ZOOMYPLUS"]["settings"].displayX = zoomyplusFrame:GetX();
+	_G["ZOOMYPLUS"]["settings"].displayY = zoomyplusFrame:GetY();
 	ZOOMYPLUS_SAVESETTINGS();
 	zoomyplusFrame.isDragging = false;
 end
 
 function ZOOMYPLUS_SETTEXT()
-	if zoomyplusFrame ~= nil and settings.display == 1 then
-		zoomyplusZText:SetText('{s16}{#B81313}{ol}Z : ' .. tonumber(currentZoom));
-		zoomyplusXText:SetText('{s16}{#B81313}{ol}X : ' .. tonumber(currentX));
-		zoomyplusYText:SetText('{s16}{#B81313}{ol}Y : ' .. tonumber(currentY));
+	if zoomyplusFrame ~= nil and _G["ZOOMYPLUS"]["settings"].display == 1 then
+		zoomyplusZText:SetText("{s16}{#B81313}{ol}Z : " .. currentZoom);
+		zoomyplusXText:SetText("{s16}{#B81313}{ol}X : " .. currentX);
+		zoomyplusYText:SetText("{s16}{#B81313}{ol}Y : " .. currentY);
 	end
 end
 
