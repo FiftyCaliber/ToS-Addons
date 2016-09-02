@@ -1,34 +1,37 @@
-local acutil = require('acutil');
-local saviorMode = {'{#2D9B27}{ol}High','{#284B7E}{ol}Low','{#532881}{ol}Super Low'};
-CHAT_SYSTEM('FPS Savior loaded! Help: /fpssavior help');
+_G["FPSSAVIOR"] = {};
+_G["FPSSAVIOR"]["saviorMode"] = {"{#2D9B27}{ol}High","{#284B7E}{ol}Low","{#532881}{ol}Super Low"};
+local acutil = require("acutil");
+CHAT_SYSTEM("FPS Savior loaded! Help: /fpssavior help");
 
 function FPSSAVIOR_ON_INIT(addon, frame)
 	frame:ShowWindow(1);
-	acutil.slashCommand('/fpssavior',FPSSAVIOR_CMD);
-	addon:RegisterMsg('FPS_UPDATE', 'FPSSAVIOR_UPDATE');
+	acutil.slashCommand("/fpssavior",FPSSAVIOR_CMD);
+	addon:RegisterMsg("FPS_UPDATE", "FPSSAVIOR_UPDATE");
+	addon:RegisterMsg("FPS_UPDATE", "FPSSAVIOR_SHOWORHIDE_FRAMES");
+	
+	_G["FPSSAVIOR"]["hidden"] = {};
 	FPSSAVIOR_LOADSETTINGS();
 end
 
-local default = {saviorToggle = 1, displayX = 510, displayY = 860, lock = 1};
-local settings = {};
-
 function FPSSAVIOR_LOADSETTINGS()
-	local s, err = acutil.loadJSON("../addons/fpssavior/settings.json");
-	if err then
-		settings = default;
+	local settings, error = acutil.loadJSON("../addons/fpssavior/settings.json");
+	if error then
+		FPSSAVIOR_SAVESETTINGS();
 	else
-		settings = s;
-		for k,v in pairs(default) do
-			if s[k] == nil then
-				settings[k] = v;
-			end
-		end
+		_G["FPSSAVIOR"]["settings"] = settings;
 	end
-	FPSSAVIOR_SAVESETTINGS();
 end
 
 function FPSSAVIOR_SAVESETTINGS()
-	acutil.saveJSON("../addons/fpssavior/settings.json", settings);
+	if _G["FPSSAVIOR"]["settings"] == nil then
+		_G["FPSSAVIOR"]["settings"] = {
+			saviorToggle = 1;
+			displayX = 510;
+			displayY = 860;
+			lock = 1;
+		};
+	end
+	acutil.saveJSON("../addons/fpssavior/settings.json", _G["FPSSAVIOR"]["settings"]);
 end
 
 function FPSSAVIOR_START_DRAG()
@@ -36,19 +39,19 @@ function FPSSAVIOR_START_DRAG()
 end
 
 function FPSSAVIOR_END_DRAG()
-	settings.displayX = saviorFrame:GetX();
-	settings.displayY = saviorFrame:GetY();
+	_G["FPSSAVIOR"]["settings"].displayX = saviorFrame:GetX();
+	_G["FPSSAVIOR"]["settings"].displayY = saviorFrame:GetY();
 	FPSSAVIOR_SAVESETTINGS();
 	saviorFrame.isDragging = false;
 end
 
 function FPSSAVIOR_UPDATE(frame, msg, argStr, argNum)
-	saviorFrame = ui.GetFrame('fpssaviorframe');
+	saviorFrame = ui.GetFrame("fpssaviorframe");
 	if saviorFrame == nil then
-		saviorFrame = ui.CreateNewFrame('bandicam','fpssaviorframe');
+		saviorFrame = ui.CreateNewFrame("fpssavior","fpssaviorframe");
 		saviorFrame:SetBorder(0, 0, 0, 0);
 		saviorFrame:Resize(100,20)
-		saviorFrame:SetOffset(settings.displayX, settings.displayY);
+		saviorFrame:SetOffset(_G["FPSSAVIOR"]["settings"].displayX, _G["FPSSAVIOR"]["settings"].displayY);
 		saviorFrame:ShowWindow(1);
 		saviorFrame:SetLayerLevel(61);
 		saviorFrame.isDragging = false;
@@ -57,16 +60,16 @@ function FPSSAVIOR_UPDATE(frame, msg, argStr, argNum)
 		saviorFrame:EnableHitTest(0);
 		saviorFrame:EnableMove(0);
 		saviorFrame.EnableHittestFrame(saviorFrame, 0);
-		settings.lock = 1;
+		_G["FPSSAVIOR"]["settings"].lock = 1;
 		FPSSAVIOR_SAVESETTINGS();
 		
-		saviorText = saviorFrame:CreateOrGetControl('richtext','saviortext',0,0,0,0);
-		saviorText = tolua.cast(saviorText,'ui::CRichText');
+		saviorText = saviorFrame:CreateOrGetControl("richtext","saviortext",0,0,0,0);
+		saviorText = tolua.cast(saviorText,"ui::CRichText");
 		saviorText:SetGravity(ui.LEFT,ui.CENTER_VERT);
-		saviorText:SetText('{s16}'..saviorMode[settings.saviorToggle]);
+		saviorText:SetText("{s16}".._G["FPSSAVIOR"]["saviorMode"][_G["FPSSAVIOR"]["settings"].saviorToggle]);
 	end
 	if not saviorFrame.isDragging then
-		saviorFrame:SetOffset(settings.displayX, settings.displayY);
+		saviorFrame:SetOffset(_G["FPSSAVIOR"]["settings"].displayX, _G["FPSSAVIOR"]["settings"].displayY);
 	end
 	if tonumber(config.GetAutoAdjustLowLevel()) ~= 2 then
 		config.SetAutoAdjustLowLevel(2);
@@ -75,60 +78,60 @@ function FPSSAVIOR_UPDATE(frame, msg, argStr, argNum)
 end
 
 function FPSSAVIOR_CMD(command)
-	local cmd = '';
+	local cmd = "";
 	if #command > 0 then
         cmd = table.remove(command, 1);
     else
 		FPSSAVIOR_TOGGLE();
         return;
     end
-	if cmd == 'help' then
-		CHAT_SYSTEM('FPS Savior Help:{nl}"/fpssavior" to toggle between 3 predefined settings High, Low, and Super Low.{nl}"/fpssavior lock" to unlock/lock the settings display in order to move it around.{nl}"/fpssavior default" to restore the settings display to its default location.');
+	if cmd == "help" then
+		CHAT_SYSTEM("FPS Savior Help:{nl}'/fpssavior' to toggle between 3 predefined settings High, Low, and Super Low.{nl}'/fpssavior lock' to unlock/lock the settings display in order to move it around.{nl}'/fpssavior default' to restore the settings display to its default location.");
 		return;
 	end
-	if cmd == 'lock' then
-		if settings.lock == 1 then
-			settings.lock = 0;
+	if cmd == "lock" then
+		if _G["FPSSAVIOR"]["settings"].lock == 1 then
+			_G["FPSSAVIOR"]["settings"].lock = 0;
 			saviorFrame:EnableHitTest(1);
 			saviorText:EnableHitTest(0);
 			saviorFrame:EnableMove(1);
 			saviorFrame.EnableHittestFrame(saviorFrame, 1);
-			CHAT_SYSTEM('Settings display unlocked.');
+			CHAT_SYSTEM("Settings display unlocked.");
 			FPSSAVIOR_SAVESETTINGS();
 		else
-			settings.lock = 1;
+			_G["FPSSAVIOR"]["settings"].lock = 1;
 			saviorFrame:EnableHitTest(0);
 			saviorFrame:EnableMove(0);
 			saviorFrame.EnableHittestFrame(saviorFrame, 0);
-			CHAT_SYSTEM('Settings display locked.');
+			CHAT_SYSTEM("Settings display locked.");
 			FPSSAVIOR_SAVESETTINGS();
 		end
 		return;
 	end
-	if cmd == 'default' then
-		settings.displayX = 510;
-		settings.displayY = 860;
-		settings.lock = 1;
-		saviorFrame:SetOffset(settings.displayX, settings.displayY);
+	if cmd == "default" then
+		_G["FPSSAVIOR"]["settings"].displayX = 510;
+		_G["FPSSAVIOR"]["settings"].displayY = 860;
+		_G["FPSSAVIOR"]["settings"].lock = 1;
+		saviorFrame:SetOffset(_G["FPSSAVIOR"]["settings"].displayX, _G["FPSSAVIOR"]["settings"].displayY);
 		saviorFrame:EnableHitTest(0);
 		saviorFrame:EnableMove(0);
 		saviorFrame.EnableHittestFrame(saviorFrame, 0);
 		FPSSAVIOR_SAVESETTINGS();
 		return;
 	end
-	CHAT_SYSTEM('Invalid command. Available commands:{nl}/fpssavior{nl}/fpssavior lock{nl}/fpssavior default');
+	CHAT_SYSTEM("Invalid command. Available commands:{nl}/fpssavior{nl}/fpssavior lock{nl}/fpssavior default");
 	return;
 end
 
 function FPSSAVIOR_SETTEXT()
 	if saviorFrame ~= nil then
-		saviorText:SetText('{s16}'..saviorMode[settings.saviorToggle]);
+		saviorText:SetText("{s16}".._G["FPSSAVIOR"]["saviorMode"][_G["FPSSAVIOR"]["settings"].saviorToggle]);
 	end
 end
 
 
 function FPSSAVIOR_DEFAULT()
-	settings.saviorToggle = 1;
+	_G["FPSSAVIOR"]["settings"].saviorToggle = 1;
 
 	graphic.SetDrawActor(100);
 	graphic.SetDrawMonster(100);
@@ -154,8 +157,8 @@ function FPSSAVIOR_DEFAULT()
 end
 
 function FPSSAVIOR_TOGGLE()
-	if settings.saviorToggle == 1 then
-		settings.saviorToggle = 2;
+	if _G["FPSSAVIOR"]["settings"].saviorToggle == 1 then
+		_G["FPSSAVIOR"]["settings"].saviorToggle = 2;
 
 		graphic.SetDrawActor(15);
 		graphic.SetDrawMonster(30);
@@ -178,8 +181,8 @@ function FPSSAVIOR_TOGGLE()
 		
 		FPSSAVIOR_SETTEXT();
 		FPSSAVIOR_SAVESETTINGS()
-	elseif settings.saviorToggle == 2 then
-		settings.saviorToggle = 3;
+	elseif _G["FPSSAVIOR"]["settings"].saviorToggle == 2 then
+		_G["FPSSAVIOR"]["settings"].saviorToggle = 3;
 		
 		graphic.SetDrawActor(-100);
 		graphic.SetDrawMonster(30);
@@ -204,5 +207,52 @@ function FPSSAVIOR_TOGGLE()
 		FPSSAVIOR_SAVESETTINGS()
 	else
 		FPSSAVIOR_DEFAULT();
+	end
+end
+
+function FPSSAVIOR_SHOWORHIDE_FRAMES()
+	if _G["FPSSAVIOR"]["settings"].saviorToggle == 3 then
+		_G["FPSSAVIOR"].wasHidden = true;
+		for i = 0,200 do
+			local charbaseinfo = ui.GetFrame("charbaseinfo1_"..i);
+			if charbaseinfo ~= nil then
+				if charbaseinfo:IsVisible() == 1 then
+					table.insert(_G["FPSSAVIOR"]["hidden"],"charbaseinfo1_"..i);
+					charbaseinfo:ShowWindow(0);
+				end
+			end
+		end
+		local selectedObjects, selectedObjectsCount = SelectObject(GetMyPCObject(), 1000000, "ALL");
+		for i = 1, selectedObjectsCount do
+			local handle = GetHandle(selectedObjects[i]);
+			if handle ~= nil then
+				if info.IsPC(handle) == 1 then
+					local shopFrame = ui.GetFrame("SELL_BALLOON_"..handle);
+					if shopFrame ~= nil then
+						if shopFrame:IsVisible() == 1 then
+							table.insert(_G["FPSSAVIOR"]["hidden"],"SELL_BALLOON_"..handle);
+							shopFrame:ShowWindow(0);
+						end
+					end
+					local ytxtFrame = ui.GetFrame(handle.."_pctitle");
+					if ytxtFrame ~= nil then
+						if ytxtFrame:IsVisible() == 1 then
+							table.insert(_G["FPSSAVIOR"]["hidden"],handle.."_pctitle");
+							ytxtFrame:ShowWindow(0);
+						end
+					end
+				end
+			end
+		end
+	else
+		if _G["FPSSAVIOR"].wasHidden == true then
+			for k,v in pairs(_G["FPSSAVIOR"]["hidden"]) do
+				local frame = ui.GetFrame(v);
+				if frame ~= nil then
+					frame:ShowWindow(1);
+				end
+			end
+			_G["FPSSAVIOR"].wasHidden = false;
+		end
 	end
 end
