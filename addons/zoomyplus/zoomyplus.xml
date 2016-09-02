@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uiframe name="zoomyplus" x="0" y="0" width="10" height="10">
-	<frame layout_gravity="top left"/>
-    <input moveable="false" hittestframe="false"/>
-    <layer layerlevel="10"/>
-    <draw drawframe="false" drawtitlebarframe="false" drawtitlebar="false"/>
-    <option closebutton="false" hideable="false"/>
-    <controls/>
+<uiframe name="zoomyplus" x="0" y="0" width="0" height="0">
+	<frame title="" layout_gravity="top left"/>
+	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="true"/>
+	<layer layerlevel="0"/>
+	<draw drawframe="false" drawtitlebarframe="false" drawtitlebar="false"/>
+	<option closebutton="false" hideable="false"/>
+	<controls/>
 </uiframe>
