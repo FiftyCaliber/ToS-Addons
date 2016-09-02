@@ -12,7 +12,7 @@ Current Setting is displayed right below the FPS display's default location. Thi
 
 * [Low] Lowest settings except effects are still visible. Players drawn outside a certain range from you is limited to 15, and monsters drawn outside a certain range from you is limited to 30.
 
-* [Super Low] This is the lowest I could make the settings while still being able to see what your doing. Not recommended for PvP since some effects are not visible and well... you can't see the players attacking you :P. Players drawn is set to -100 which removes themm all besides yourself, and monsters drawn is the same as low mode so as to not make bosses disappear if there are too many mobs or objects that are catagorized as mobs. I created this mode for world bossing, since you don't need to see anything except for the boss and your own aiming circles to dps it.
+* [Super Low] This is the lowest I could make the settings while still being able to see what your doing. Not recommended for PvP since some effects are not visible and well... you can't see the players attacking you :P. Players drawn is set to -100 which removes them all besides yourself, and monsters drawn is the same as low mode so as to not make bosses disappear if there are too many mobs or objects that are catagorized as mobs. I created this mode for world bossing, since you don't need to see anything except for the boss and your own aiming circles to dps it.
 
 ##### Slash Commands (Use the ingame macro system (f8) to use slash commands more efficiently.)
 * `/fpssavior` to toggle between High, Low, and Super Low.
