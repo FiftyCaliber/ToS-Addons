@@ -32,7 +32,7 @@ Use Page Up to zoom in and Page Down to zoom out. Doing so while holding Left Ct
 ##### Slash Commands (Use the ingame macro system (f8) to use slash commands more efficiently.)
 * `/zplus zoom <num>` to go to a specific zoom level anywhere between 50 and 1500!
  * Example: `/zplus zoom 800`
-* `/zplus swap <num1> <num2>` to swap between two zoom levels!
+* `/zplus swap <num1> <num2>` or `/zplus switch <num1> <num2>` to swap/switch between two zoom levels!
  * Example: `/zplus swap 350 500`
 * `/zplus rotate <x> <y>` to rotate camera to specific coordinates between 0 and 359!
  * Example: `/zplus rotate 90 10`
@@ -80,9 +80,9 @@ My main PvE character is a Cannoneer and for awhile now I've been annoyed by the
 Now some might say this would be exploiting, however the game already lets you do this via hotbar slots this is just more user friendly. Also the left side slots which I added uses the same functions as cwSet to equip/unequip, it's just limited to weapons and has a UI. Not only that but I ADDED the requirement of having the 'Weapon Swap' attribute, since IMC doesn't seem to know how to do such things server side I did it for them (not that the attribute costs anything >.>).
 
 ##### Slash Commands (Use the ingame macro system (f8) to use slash commands more efficiently.)
-* `/swapit` to swap your left side weapons.
-* `/swapit lock` to unlock/lock the Swapit display in order to move it around. Be sure to lock it again when you have it where you like, otherwise you can't interact with the slots.
-* `/swapit default` to restore Swapit display to its default location.
+* `/swapit` or `/si` to swap your left side weapons.
+* `/swapit lock` or `/si lock` to unlock/lock the Swapit display in order to move it around. Be sure to lock it again when you have it where you like, otherwise you can't interact with the slots.
+* `/swapit default` or `/si default` to restore Swapit display to its default location.
 
 # Download
 
