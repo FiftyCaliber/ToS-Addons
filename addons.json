@@ -17,8 +17,8 @@
 		"name" : "Zoomy Plus",
 		"file" : "zoomyplus",
 		"extension" : "ipf",
-		"fileVersion" : "v1.0.5",
-		"releaseTag" : "ZPv1.0.5",
+		"fileVersion" : "v1.0.6",
+		"releaseTag" : "ZPv1.0.6",
 		"unicode" : "🔫",
 		"description" : "Zoom closer/farther then normal and rotate your camera to capture neat pictures. For help type [ /zplus help ] ingame or refer to the website for more information.",
 		"tags" : [
@@ -59,8 +59,8 @@
 		"name" : "Swapit",
 		"file" : "swapit",
 		"extension" : "ipf",
-		"fileVersion" : "v1.0.2",
-		"releaseTag" : "Sv1.0.2",
+		"fileVersion" : "v1.0.3",
+		"releaseTag" : "Sv1.0.3",
 		"unicode" : "🔫",
 		"description" : "Adds 2 additional weapon set slots to swap between using [ /swapit ] as long as you have the 'Weapon Swap' attribute. For help type [ /swapit help ] ingame or refer to the website for more information.",
 		"tags" : [
