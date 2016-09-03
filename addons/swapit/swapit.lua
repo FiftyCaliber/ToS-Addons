@@ -4,6 +4,7 @@ CHAT_SYSTEM("Swapit loaded! Help: /swapit help");
 
 function SWAPIT_ON_INIT(addon, frame)
 	acutil.slashCommand("/swapit",SWAPIT_CMD);
+	acutil.slashCommand("/si",SWAPIT_CMD);
 	addon:RegisterMsg("WEAPONSWAP","WS_SWAP_UPDATE");
 	addon:RegisterMsg("WEAPONSWAP_FAIL","WS_FAIL");
 	addon:RegisterMsg("WEAPONSWAP_SUCCESS","WS_SLOT_SUCCESS");
