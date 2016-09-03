@@ -1,6 +1,6 @@
 _G["SWAPIT"] = {};
 local acutil = require("acutil");
-CHAT_SYSTEM("Swapit loaded! Help: /swapit help");
+CHAT_SYSTEM("Swapit loaded! Help: '/swapit help' or '/si help'");
 
 function SWAPIT_ON_INIT(addon, frame)
 	acutil.slashCommand("/swapit",SWAPIT_CMD);
@@ -67,7 +67,7 @@ function SWAPIT_CMD(command)
 		return;
     end
 	if cmd == "help" then
-		CHAT_SYSTEM("Swapit Help:{nl}'/swapit' to swap your left side weapons. Highly recommended to put this on an ingame macro (F8) so you can assign it to any key binding you like.{nl}'/swapit lock' to unlock/lock the Swapit display in order to move it around. Be sure to lock it again when you have it where you like, otherwise you can't interact with the slots.{nl}'/swapit default' to restore Swapit display to its default location.");
+		CHAT_SYSTEM("Swapit Help:{nl}'/swapit' or '/si' to swap your left side weapons. Highly recommended to put this on an ingame macro (F8) so you can assign it to any key binding you like.{nl}'/swapit lock' or '/si lock' to unlock/lock the Swapit display in order to move it around. Be sure to lock it again when you have it where you like, otherwise you can't interact with the slots.{nl}'/swapit default' or '/si default' to restore Swapit display to its default location.");
 		return;
 	end
 	if cmd == "lock" then
@@ -112,7 +112,7 @@ function SWAPIT_CMD(command)
 		SWAPIT_SAVESETTINGS();
 		return;
 	end
-	CHAT_SYSTEM("Invalid command. Available commands:{nl}/swapit{nl}/swapit lock{nl}/swapit default");
+	CHAT_SYSTEM("Invalid command. Available commands:{nl}/swapit{nl}/swapit lock{nl}/swapit default{nl}/si{nl}/si lock{nl}/si default");
 end
 
 
@@ -190,7 +190,7 @@ function SWAPIT_CREATE_FRAME()
 	picLeft:Resize(29,29);
 	picLeft:SetImage("weaponswap_mark")
 	picLeft:SetEnableStretch(1);
-	picLeft:SetTextTooltip("{@st59}Use '/swapit' to swap weapons.{/}");
+	picLeft:SetTextTooltip("{@st59}Use '/swapit' or '/si' to swap weapons.{/}");
 
 --	[Picture Right] (Original)
 	picRight = swapitFrame:CreateOrGetControl("picture", "picRight",0,0,0,0);
