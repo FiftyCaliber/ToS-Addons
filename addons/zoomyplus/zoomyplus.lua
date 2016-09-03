@@ -56,11 +56,11 @@ function ZOOMYPLUS_CMD(command)
 	if #command > 0 then
         cmd = table.remove(command, 1);
     else
-		CHAT_SYSTEM("Invalid command. Available commands:{nl}/zplus help{nl}/zplus zoom <num>{nl}/zplus swap <num1> <num2>{nl}/zplus rotate <x> <y>{nl}/zplus reset{nl}/zplus reset xy{nl}/zplus display{nl}/zplus lock{nl}/zplus default");
+		CHAT_SYSTEM("Invalid command. Available commands:{nl}/zplus help{nl}/zplus zoom <num>{nl}/zplus swap <num1> <num2>{nl}/zplus switch <num1> <num2>{nl}/zplus rotate <x> <y>{nl}/zplus reset{nl}/zplus reset xy{nl}/zplus display{nl}/zplus lock{nl}/zplus default");
         return;
     end
 	if cmd == "help" then
-		CHAT_SYSTEM("Zoomy Plus Help:{nl}Use Page Up to zoom in and Page Down to zoom out. Doing so while holding Left Ctrl makes zooming in and out 5 times faster. Also while holding Left Ctrl you can press and hold Right Click to rotate the camera by moving the mouse!{nl}'/zplus zoom <num>' to go to a specific zoom level anywhere between 50 and 1500!{nl}Example: /zplus zoom 800{nl}'/zplus swap <num1> <num2>' to swap between two zoom levels!{nl}Example: /zplus swap 350 500{nl}'/zplus rotate <x> <y>' to rotate camera to specific coordinates between 0 and 359!{nl}Example: /zplus rotate 90 10{nl}'/zplus reset' to restore default xy positioning and zoom level.{nl}'/zplus reset xy' to restore default positioning to xy only.{nl}'/zplus display' to show/hide the coordinate display.{nl}'/zplus lock' to unlock/lock the coordinate display in order to move it around.{nl}'/zplus default' to restore coordinate display to its default location.");
+		CHAT_SYSTEM("Zoomy Plus Help:{nl}Use Page Up to zoom in and Page Down to zoom out. Doing so while holding Left Ctrl makes zooming in and out 5 times faster. Also while holding Left Ctrl you can press and hold Right Click to rotate the camera by moving the mouse!{nl}'/zplus zoom <num>' to go to a specific zoom level anywhere between 50 and 1500!{nl}Example: /zplus zoom 800{nl}'/zplus swap <num1> <num2>' or '/zplus switch <num1> <num2>' to swap/switch between two zoom levels!{nl}Example: /zplus swap 350 500{nl}'/zplus rotate <x> <y>' to rotate camera to specific coordinates between 0 and 359!{nl}Example: /zplus rotate 90 10{nl}'/zplus reset' to restore default xy positioning and zoom level.{nl}'/zplus reset xy' to restore default positioning to xy only.{nl}'/zplus display' to show/hide the coordinate display.{nl}'/zplus lock' to unlock/lock the coordinate display in order to move it around.{nl}'/zplus default' to restore coordinate display to its default location.");
 		return;
 	end
 	if cmd == "zoom" then
@@ -76,7 +76,7 @@ function ZOOMYPLUS_CMD(command)
 		end
 		return;
 	end
-	if cmd == "swap" then
+	if cmd == "swap" or cmd == "switch" then
 		local swap1 = tonumber(table.remove(command, 1));
 		local swap2 = tonumber(table.remove(command, 1));
 		if type(swap1) == "number" and type(swap2) == "number" then
@@ -184,7 +184,7 @@ function ZOOMYPLUS_CMD(command)
 		ZOOMYPLUS_SAVESETTINGS();
 		return;
 	end
-	CHAT_SYSTEM("Invalid command. Available commands:{nl}/zplus help{nl}/zplus zoom <num>{nl}/zplus swap <num1> <num2>{nl}/zplus rotate <x> <y>{nl}/zplus reset{nl}/zplus reset xy{nl}/zplus display{nl}/zplus lock{nl}/zplus default");
+	CHAT_SYSTEM("Invalid command. Available commands:{nl}/zplus help{nl}/zplus zoom <num>{nl}/zplus swap <num1> <num2>{nl}/zplus switch <num1> <num2>{nl}/zplus rotate <x> <y>{nl}/zplus reset{nl}/zplus reset xy{nl}/zplus display{nl}/zplus lock{nl}/zplus default");
 	return;
 end
 
