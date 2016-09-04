@@ -74,8 +74,8 @@
 		"name" : "Mount 'er Good",
 		"file" : "mountergood",
 		"extension" : "ipf",
-		"fileVersion" : "v1.0.0",
-		"releaseTag" : "MGv1.0.0",
+		"fileVersion" : "v1.0.1",
+		"releaseTag" : "MGv1.0.1",
 		"unicode" : "🔫",
 		"description" : "Sick of your pet getting stuck somewhere leaving you with nothing to mount? Well here you go, this addon teleports your companion to you if its not within range when you try to mount. Refer to the website for more information.",
 		"tags" : [
