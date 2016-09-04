@@ -52,7 +52,8 @@
 			"grow",
 			"shrink",
 			"mouse",
-			"pets"
+			"pets",
+			"companion"
 		]
 	},
 	{
@@ -62,11 +63,24 @@
 		"fileVersion" : "v1.0.3",
 		"releaseTag" : "Sv1.0.3",
 		"unicode" : "🔫",
-		"description" : "Adds 2 additional weapon set slots to swap between using [ /swapit ] as long as you have the 'Weapon Swap' attribute. For help type [ /swapit help ] ingame or refer to the website for more information.",
+		"description" : "Adds 2 additional weapon set slots to swap between using [ /swapit ] or [ /si ] as long as you have the 'Weapon Swap' attribute. For help type [ /swapit help ] or [ /si help ] ingame or refer to the website for more information.",
 		"tags" : [
 			"weapon",
 			"swap",
 			"ui"
+		]
+	},
+	{
+		"name" : "Mount 'er Good",
+		"file" : "mountergood",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.0",
+		"releaseTag" : "MGv1.0.0",
+		"unicode" : "🔫",
+		"description" : "Sick of your pet getting stuck somewhere leaving you with nothing to mount? Well here you go, this addon teleports your companion to you if its not within range when you try to mount. Refer to the website for more information.",
+		"tags" : [
+			"pets",
+			"companion"
 		]
 	}
 ]
