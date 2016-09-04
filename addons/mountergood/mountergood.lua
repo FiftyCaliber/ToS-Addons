@@ -34,12 +34,16 @@ function MOUNTERGOOD_HOOKED(mountType)
 end
 
 function MOUNTERGOOD_UPDATE()
+	local summonedPet = GET_SUMMONED_PET();
+	if summonedPet == nil then
+		return;
+	end
 	local petFrame = ui.GetFrame("pet_info");
 	local petGuid = petFrame:GetUserValue("PET_GUID");
 	if petGuid == "None" then
 		UI_TOGGLE_PETLIST();
 		petFrame:ShowWindow(0);
-		return MOUNTERGOOD_UPDATE();
+		return;
 	end
 	local petInfo = session.pet.GetPetByGUID(petGuid);
 	local petObj = GetIES(petInfo:GetObject());
