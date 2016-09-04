@@ -84,6 +84,12 @@ Now some might say this would be exploiting, however the game already lets you d
 * `/swapit lock` or `/si lock` to unlock/lock the Swapit display in order to move it around. Be sure to lock it again when you have it where you like, otherwise you can't interact with the slots.
 * `/swapit default` or `/si default` to restore Swapit display to its default location.
 
+### Mount 'er Good
+
+Sick of your pet getting stuck somewhere leaving you with nothing to mount? Well here you go, this addon teleports your companion to you if its not within range when you try to mount. When/if the companion breaks (stops moving or doing anything) and you move too far away from it for it to teleport then it will be flagged as "broken". While broken it will automatically deactivate when out of range and reactivate 6 seconds later so that its always (accept for that 6 second downtime, assuming you let it get that far away in the first place) within range to teleport/mount.
+
+I know that sometimes you might not want your companion active, such as for quests where you need to interact with a mob without killing it, or perhaps a picture that you dont want the companion in. So for such cases I added a slash command to turn the pet off, or more importantly stop the addon from automatically reactivating it after 6 seconds pass. To do this type `/nopet`, and until you type it again or restart the client your companion will no longer be automatically activated.
+
 # Download
 
 Install addons via the [Addon Manager](https://github.com/Excrulon/Tree-of-Savior-Addon-Manager).
