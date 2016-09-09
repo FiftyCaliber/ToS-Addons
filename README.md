@@ -65,11 +65,11 @@ Need to rotate the direction a target is facing? Use the slash commands mentione
 
 ### The Bigger They Are
 
-I've been looking for a way to deal with targeting mounted companions in mouse mode for awhile. I and everyone else I've spoken with in the addon community can't seem to find a way to make selective targets untargetable or switch to the owner of that target. So... I made this instead, it's a bit funny but it works! This addon makes it so when you target a companion that is mounted, the mounted players head triples in size. This will also occur if you happen to successfully target the player that is mounted. If the player is no longer mounted and is targeted or their companion is targeted, their heads size will change back to normal. Now this doesn't fix the issue that you CAN target the companions however it gives you a larger target to actually lock on to.
+I've been looking for a way to deal with targeting mounted companions in mouse mode for awhile. ~~I and everyone else I've spoken with in the addon community can't seem to find a way to make selective targets untargetable or switch to the owner of that target. So... I made this instead, it's a bit funny but it works! This addon makes it so when you target a companion that is mounted, the mounted players head triples in size. This will also occur if you happen to successfully target the player that is mounted. If the player is no longer mounted and is targeted or their companion is targeted, their heads size will change back to normal. Now this doesn't fix the issue that you CAN target the companions however it gives you a larger target to actually lock on to.~~ Okay scratch all that, apparently there is a way to make the companion untargetable after all. We can remove its existence from your screen, however there is no way to bring it back (that I know of) other then passing through a loading screen. I don't believe this is much of an issue though when you consider what it is fixing. Now I decided to leave the big heads cause well, it's a pretty good indicator of knowing if the player is mounted or not. Why would you not know they are mounted or not? Because by sending the players companion into the void it will look like they are running around normally... just quicker.
 
 ![The Bigger They Are](http://i.imgur.com/Noow3mP.png)
 
-Here is an example of head size being tripled. (The actual addon won't change the size of your own characters head if you happen to target your companion while mounted.)
+Here is an example of head size being tripled. (The actual addon won't change the size of your own characters head nor will it make your companion disappear into the void if you happen to target it while mounted.)
 
 ### Swapit
 
