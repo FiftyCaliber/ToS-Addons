@@ -1,3 +1,8 @@
+### NOTICE (June 2007)
+
+I quit Tree of Savior sometime around September 2016 and have no idea about the current state of the game and the addon community. However just now having signed in on GitHub I noticed there are issue fix requests for some of the addons I made. I would just like to state that I am no longer modding for this game and any fixes needed due to game updates will need to be done by others whom are still actively modding for Tree of Savior.
+
+
 # Tree of Savior Addons
 
 ### FPS Savior
